@@ -6,14 +6,14 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2020/11/22 22:22:52 by sunpark          ###   ########.fr       */
+/*   Updated: 2020/11/22 22:38:36 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(void)
+int	main(void)
 {
-    ft_printf("Test this norm is wrong. SO WRONG!!!! sdfnsldfknweiofklandfojlksdn\n");
-    return 0;
+	ft_printf("Test this norm is right. SO RIGHT!!!!\n");
+	return (0);
 }
