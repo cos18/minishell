@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunpark <sunpark@student.42.kr>            +#+  +:+       +#+        */
+/*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 19:14:43 by sunpark           #+#    #+#             */
-/*   Updated: 2020/04/03 23:12:29 by sunpark          ###   ########.fr       */
+/*   Updated: 2020/11/28 00:03:49 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	isblank(char a)
+static int	is_blank(char a)
 {
 	return (a == '\t' || a == '\v' || a == '\f' || \
 			a == '\r' || a == '\n' || a == ' ');
@@ -25,7 +25,7 @@ int			ft_atoi(const char *str)
 
 	minus = 1;
 	ans = 0;
-	while (isblank(*str))
+	while (is_blank(*str))
 		str++;
 	if (*str == '-' || *str == '+')
 	{
