@@ -1,0 +1,16 @@
+# .github/workflows/norminette.yml
+name: norminette
+on: [push, pull_request]
+
+jobs:
+  basic_42_test:
+    runs-on: ubuntu-latest
+    name: Basic 42 Tests
+    steps:
+    - uses: actions/checkout@v2
+    - name: Check norm in srcs & includes
+      uses: alexandregv/norminette-action@v2
+      with:
+        flags: 'srcs includes'
+    - name: Check basic Makefile jobs
+      run: make && make re && make clean && make all && make fclean

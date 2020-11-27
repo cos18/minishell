@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2020/11/27 23:40:45 by sunpark          ###   ########.fr       */
+/*   Updated: 2020/11/27 23:44:09 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int			main(void)
 			if (gnl_result == GNL_READ_EOF)
 				ft_printf("exit\n");
 			free(cmd);
-			break;
+			break ;
 		}
 		if (ft_strlen(cmd) == 0)
 		{
 			free(cmd);
-			continue;
+			continue ;
 		}
 		ft_printf("%s\n", cmd);
 		free(cmd);
