@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   minishell_const.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2020/11/27 23:37:24 by sunpark          ###   ########.fr       */
+/*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
+/*   Updated: 2020/11/27 23:37:13 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef MINISHELL_CONST_H
+# define MINISHELL_CONST_H
 
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft.h"
-# include "minishell_const.h"
-
-void	print_prompt(void);
+# define TRUE 1
+# define FALSE 0
 
 #endif

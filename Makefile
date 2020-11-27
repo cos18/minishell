@@ -6,11 +6,11 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2020/11/22 22:20:02 by sunpark          ###   ########.fr        #
+#    Updated: 2020/11/27 23:37:51 by sunpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c
+SRC		= main.c print_promt.c
 
 SRCDIR	= ./srcs/
 SRCS	= $(addprefix $(SRCDIR), $(SRC))
