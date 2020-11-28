@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2020/11/27 23:37:24 by sunpark          ###   ########.fr       */
+/*   Updated: 2020/11/28 21:59:17 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "libft.h"
 # include "minishell_const.h"
 
-void	print_prompt(void);
+void	print_prompt(int ps);
+int		get_command(char **cmd);
 
 #endif
