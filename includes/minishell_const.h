@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2020/11/28 23:22:21 by sunpark          ###   ########.fr       */
+/*   Updated: 2020/12/07 23:35:41 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,8 @@
 # define GET_CMD_EOF 0
 # define GET_CMD_READ 1
 # define GET_CMD_EXIT 2
+
+# define SOURCE_OK 0
+# define SOURCE_EXIT 1
 
 #endif
