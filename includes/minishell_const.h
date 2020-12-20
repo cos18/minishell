@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2020/12/07 23:35:41 by sunpark          ###   ########.fr       */
+/*   Updated: 2020/12/20 16:03:52 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,9 @@
 
 # define SOURCE_OK 0
 # define SOURCE_EXIT 1
+
+# define SRC_INIT_POS -2
+# define SRC_EOF -1
+# define SRC_ERRCHAR 0
 
 #endif

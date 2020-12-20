@@ -6,16 +6,18 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2020/12/07 23:37:08 by sunpark          ###   ########.fr       */
+/*   Updated: 2020/12/20 17:37:12 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			get_source(char **cmd)
+int				get_source()
 {
-	int		cmd_status;
+	char		**cmd;
+	int			cmd_status;
 
+	cmd = &(g_bash->src.buf);
 	cmd_status = get_command(cmd);
 	if (cmd_status == GET_CMD_ERROR)
 		exit(EXIT_FAILURE);
@@ -30,18 +32,21 @@ int			get_source(char **cmd)
 	return (SOURCE_OK);
 }
 
-int			main(void)
+int				main(void)
 {
-	char	*cmd;
+	t_bash		bash;
+	char		*cmd;
 
 	while (TRUE)
 	{
-		cmd = NULL;
+		bash.src.buf = NULL;
+		g_bash = &bash;
 		print_prompt(PS1);
-		if (get_source(&cmd) == SOURCE_EXIT)
-			break;
-		if (cmd != NULL && ft_strlen(cmd) != 0)
-			ft_printf("%s\n", cmd);
+		if (get_source() == SOURCE_EXIT)
+			break ;
+		src_set();
+		if (g_bash->src.buf != NULL && g_bash->src.bufsize != 0)
+			ft_printf("%s\n", g_bash->src.buf);
 		free(cmd);
 	}
 }
