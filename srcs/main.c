@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2020/12/20 17:37:12 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/02 16:03:13 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int				main(void)
 	t_bash		bash;
 	char		*cmd;
 
+	cmd = NULL;
 	while (TRUE)
 	{
 		bash.src.buf = NULL;
