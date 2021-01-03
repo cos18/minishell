@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2020/11/28 23:31:16 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/04 07:21:45 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,67 +20,87 @@ void		print_prompt(int ps)
 		ft_printf("> ");
 }
 
-static char	*cmd_join(char *cmd, char *input)
+static char	*ft_join(char *s1, char *s2)
 {
-	char	*result;
-	int		locate;
+	char	*r;
+	size_t	i;
+	size_t	j;
 
-	if (!input)
+	if (!(r = malloc((s1 ? ft_strlen(s1) : 0) + (s2 ? ft_strlen(s2) : 0) + 2)))
 		return (NULL);
-	result = (char *)malloc((cmd ? ft_strlen(cmd) : 0) + ft_strlen(input) + 1);
-	if (result)
+	i = -1;
+	while (s1 && s1[++i])
+		r[i] = s1[i];
+	i > 0 ? r[i++] = '\n' : FALSE;
+	j = -1;
+	while (s2 && s2[++j])
+		r[i + j] = s2[j];
+	r[i + j] = '\0';
+	if (s1)
 	{
-		locate = 0;
-		while (cmd && *cmd)
-		{
-			result[locate++] = *cmd;
-			cmd++;
-		}
-		while (*input)
-		{
-			if (*input == '\\' && *(input + 1) == *input)
-				result[locate++] = *(input++);
-			else if (*input != '\\')
-				result[locate++] = *input;
-			input++;
-		}
-		result[locate] = '\0';
+		free(s1);
+		s1 = NULL;
 	}
-	return (result);
+	if (s2)
+	{
+		free(s2);
+		s2 = NULL;
+	}
+	return (r);
 }
 
-static int	check_backslash(char *tmp)
+static char	*ft_strpop(char *str, size_t pop)
 {
-	int		backslash;
+	if (str == NULL || ft_strlen(str) <= pop)
+		return (NULL);
+	pop -= 1;
+	while (str[++pop])
+		str[pop] = str[pop + 1];
+	return (str);
+}
 
-	backslash = ft_strlen(tmp) - 1;
-	while (tmp[backslash] == '\\')
-		backslash--;
-	backslash = ft_strlen(tmp) - backslash;
-	free(tmp);
-	return ((backslash % 2) ? FALSE : TRUE);
+static int	check_quotes(char *str, char *quote)
+{
+	int		i;
+
+	if (str == NULL || ft_strlen(str) == 0 || quote == NULL)
+		return (FALSE);
+	i = -1;
+	while (str[++i])
+	{
+		if (*quote == 0 && (str[i] == '\'' || str[i] == '"'))
+		{
+			*quote = str[i];
+			ft_strpop(str, i);
+			i--;
+		}
+		else if (*quote != '\0' && *quote == str[i])
+		{
+			*quote = '\0';
+			ft_strpop(str, i);
+			i--;
+		}
+	}
+	return (*quote == '\0');
 }
 
 int			get_command(char **cmd)
 {
 	char	*tmp;
-	char	*join_tmp;
 	int		gnl_result;
+	char	quote;
 
+	quote = '\0';
 	while (TRUE)
 	{
-		gnl_result = get_next_line(0, &tmp);
-		if (tmp == NULL || gnl_result != GNL_READ)
+		if ((gnl_result = get_next_line(0, &tmp)) != GNL_READ || tmp == NULL)
 		{
 			if (*cmd)
 				free(*cmd);
 			return (gnl_result);
 		}
-		join_tmp = cmd_join(*cmd, tmp);
-		if (*cmd)
-			free(*cmd);
-		*cmd = join_tmp;
-		if (check_backslash(tmp) == FALSE)
+		*cmd = ft_join(*cmd, tmp);
+		if (check_quotes(*cmd, &quote) == TRUE)
 			break ;
 		print_prompt(PS2);
 	}

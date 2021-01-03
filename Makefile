@@ -6,7 +6,7 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/04 02:55:08 by hyukim           ###   ########.fr        #
+#    Updated: 2021/01/04 04:48:28 by hyukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ STDIR	= stack
 NAME	= minishell
 
 GCC		= gcc
-GCCFLAG	= -Wall -Wextra -Werror
+GCCFLAG	= -g3 -Wall -Wextra -Werror
 RM		= rm -f
 
 %.o:		%.c
