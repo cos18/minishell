@@ -6,13 +6,13 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/04 20:22:29 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/04 20:47:36 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				get_source()
+int				get_source(void)
 {
 	char		**cmd;
 	int			cmd_status;
