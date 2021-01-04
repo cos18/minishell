@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/02 16:03:13 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:03:57 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ int				get_source()
 			printf("exit\n");
 		return (SOURCE_EXIT);
 	}
+	g_bash->token = cmd_split(*cmd);
 	return (SOURCE_OK);
 }
 
 int				main(void)
 {
 	t_bash		bash;
-	char		*cmd;
+	char		**test;
 
-	cmd = NULL;
 	while (TRUE)
 	{
 		bash.src.buf = NULL;
@@ -47,7 +47,10 @@ int				main(void)
 			break ;
 		src_set();
 		if (g_bash->src.buf != NULL && g_bash->src.bufsize != 0)
-			ft_printf("%s\n", g_bash->src.buf);
-		free(cmd);
+		{
+			test = g_bash->token;
+			while (*test)
+				ft_printf("|%s|\n", *(test++));
+		}
 	}
 }

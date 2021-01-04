@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2020/12/20 17:12:09 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/04 17:18:20 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 typedef struct	s_bash
 {
 	t_source	src;
+	char		**token;
 }				t_bash;
 
 t_bash			*g_bash;
