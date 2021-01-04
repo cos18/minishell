@@ -6,17 +6,16 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/04 18:04:42 by sunpark          ###   ########.fr        #
+#    Updated: 2021/01/05 00:32:34 by sunpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c tokenize/cmd_io.c tokenize/source_utils.c \
+SRC		= main.c tokenize/cmd_io.c tokenize/cmd_split.c \
 		  $(STDIR)/init_stack.c \
 		  $(STDIR)/stack_empty.c \
 		  $(STDIR)/stack_pop.c \
 		  $(STDIR)/stack_push.c \
 		  $(STDIR)/free_stack.c \
-		  tokenize/cmd_split.c
 
 SRCDIR	= ./srcs/
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

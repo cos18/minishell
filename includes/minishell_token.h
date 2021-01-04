@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/04 17:59:45 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/05 00:35:08 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,7 @@ typedef struct	s_source
 	long		curpos;
 }				t_source;
 
-void			src_set();
-void			src_unget_char(t_source *src);
-char			src_next_char(t_source *src);
-char			src_peek_char(t_source *src);
-void			src_skip_spaces(t_source *src);
-
+int				free_token(char **sep, int word_locate);
 char			**cmd_split(char const *s);
 
 #endif
