@@ -6,11 +6,12 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/05 00:32:34 by sunpark          ###   ########.fr        #
+#    Updated: 2021/01/05 01:26:37 by sunpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c tokenize/cmd_io.c tokenize/cmd_split.c \
+SRC		= main.c free_utils.c \
+		  tokenize/cmd_io.c tokenize/cmd_split.c \
 		  $(STDIR)/init_stack.c \
 		  $(STDIR)/stack_empty.c \
 		  $(STDIR)/stack_pop.c \

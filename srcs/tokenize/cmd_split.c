@@ -6,13 +6,13 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:01:29 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:39:10 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/05 01:25:33 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	count_token(char const *s)
+static int	count_token(char *s)
 {
 	int		result;
 	int		is_word;
@@ -41,7 +41,7 @@ static int	count_token(char const *s)
 	return (result);
 }
 
-static char	*cmd_substr(char const *s, size_t len)
+static char	*cmd_substr(char *s, size_t len)
 {
 	char	*result;
 	char	*tmp;
@@ -59,7 +59,8 @@ static char	*cmd_substr(char const *s, size_t len)
 		{
 			if ((s[locate] == '\'' || s[locate] == '\"') && (quote == '\0'))
 				quote = s[locate];
-			else if ((s[locate] == '\'' || s[locate] == '\"') && (quote == s[locate]))
+			else if ((s[locate] == '\'' || s[locate] == '\"')
+							&& (quote == s[locate]))
 				quote = '\0';
 			else
 				*(tmp++) = s[locate];
@@ -69,18 +70,17 @@ static char	*cmd_substr(char const *s, size_t len)
 	return (result);
 }
 
-int			free_token(char **sep, int word_locate)
+static void	check_quote_and_next(char **s, char *quote, int *ws)
 {
-	int		locate;
-
-	locate = -1;
-	while (++locate < word_locate - 1 && sep[locate])
-		free(sep[locate]);
-	free(sep);
-	return (1);
+	if ((**s == '\'' || **s == '\"') && (*quote == '\0'))
+		*quote = **s;
+	else if ((**s == '\'' || **s == '\"') && (*quote == **s))
+		*quote = '\0';
+	(*ws)++;
+	(*s)++;
 }
 
-static int	get_sep_token(char **sep, char const *s)
+static int	get_sep_token(char **sep, char *s)
 {
 	int		word_size;
 	int		word_locate;
@@ -101,12 +101,7 @@ static int	get_sep_token(char **sep, char const *s)
 				return (free_token(sep, word_locate));
 			word_size = -1;
 		}
-		if ((*s == '\'' || *s == '\"') && (quote == '\0'))
-			quote = *s;
-		else if ((*s == '\'' || *s == '\"') && (quote == *s))
-			quote = '\0';
-		word_size++;
-		s++;
+		check_quote_and_next(&s, &quote, &word_size);
 	}
 	if (word_size)
 		sep[word_locate++] = cmd_substr(start, word_size);
@@ -114,7 +109,7 @@ static int	get_sep_token(char **sep, char const *s)
 	return (0);
 }
 
-char		**cmd_split(char const *s)
+char		**cmd_split(char *s)
 {
 	int		words;
 	char	**result;

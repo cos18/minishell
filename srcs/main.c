@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/05 01:16:02 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/05 01:21:19 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,6 @@ static int		get_source(void)
 	}
 	g_bash->token = cmd_split(*cmd);
 	return (SOURCE_OK);
-}
-
-void			cmd_end_free(void)
-{
-	free_token(g_bash->token, MAX_TOKEN);
 }
 
 int				main(void)
