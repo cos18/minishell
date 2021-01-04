@@ -6,11 +6,11 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/04 20:03:36 by hyukim           ###   ########.fr        #
+#    Updated: 2021/01/04 20:28:54 by hyukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c tokenize/cmd_io.c tokenize/source_utils.c \
+SRC		= main.c tokenize/cmd_io.c
 
 SRCDIR	= ./srcs/
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

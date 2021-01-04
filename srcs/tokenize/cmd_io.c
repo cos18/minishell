@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/04 07:21:45 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/04 20:15:56 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	check_quotes(char *str, char *quote)
 	return (*quote == '\0');
 }
 
-int			get_command(char **cmd)
+int			get_command(void)
 {
 	char	*tmp;
 	int		gnl_result;
@@ -95,16 +95,17 @@ int			get_command(char **cmd)
 	{
 		if ((gnl_result = get_next_line(0, &tmp)) != GNL_READ || tmp == NULL)
 		{
-			if (*cmd)
-				free(*cmd);
+			if (g_bash->cmd)
+				free(g_bash->cmd);
 			return (gnl_result);
 		}
-		*cmd = ft_join(*cmd, tmp);
-		if (check_quotes(*cmd, &quote) == TRUE)
+		g_bash->cmd = ft_join(g_bash->cmd, tmp);
+		if (check_quotes(g_bash->cmd, &quote) == TRUE)
 			break ;
 		print_prompt(PS2);
 	}
-	if (ft_strncmp(*cmd, "exit", 5) == 0)
+	if (ft_strncmp(g_bash->cmd, "exit", 5) == 0)
 		ft_printf("exit\n");
-	return (ft_strncmp(*cmd, "exit", 5) == 0 ? GET_CMD_EXIT : GET_CMD_READ);
+	return (ft_strncmp(g_bash->cmd, "exit", 5) == 0 ?
+			GET_CMD_EXIT : GET_CMD_READ);
 }
