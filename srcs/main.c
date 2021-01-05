@@ -14,10 +14,8 @@
 
 static int		get_source(void)
 {
-	char		**cmd;
 	int			cmd_status;
 
-	cmd = &(g_bash->cmd);
 	cmd_status = get_command();
 	if (cmd_status == GET_CMD_ERROR)
 		exit(EXIT_FAILURE);
