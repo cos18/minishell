@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include "libft.h"
 # include "minishell_const.h"
+# include "minishell_token.h"
 
 typedef struct	s_bash
 {
