@@ -19,6 +19,7 @@
 # include "minishell_const.h"
 
 typedef struct	s_bash
+{
 	char		*cmd;
 	char		**token;
 }				t_bash;
