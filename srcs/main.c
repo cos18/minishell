@@ -21,13 +21,13 @@ static int		get_source(void)
 		exit(EXIT_FAILURE);
 	if (cmd_status == GET_CMD_EXIT || cmd_status == GET_CMD_EOF)
 	{
-		if (*cmd)
-			free(*cmd);
+		if (g_bash->cmd)
+			free(g_bash->cmd);
 		if (cmd_status == GET_CMD_EOF)
 			printf("exit\n");
 		return (SOURCE_EXIT);
 	}
-	g_bash->token = cmd_split(*cmd);
+	g_bash->token = cmd_split(g_bash->cmd);
 	return (SOURCE_OK);
 }
 
