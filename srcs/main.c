@@ -6,13 +6,13 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/04 20:47:36 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/05 01:21:19 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int				get_source(void)
+static int		get_source(void)
 {
 	char		**cmd;
 	int			cmd_status;
@@ -29,15 +29,15 @@ int				get_source(void)
 			printf("exit\n");
 		return (SOURCE_EXIT);
 	}
+	g_bash->token = cmd_split(*cmd);
 	return (SOURCE_OK);
 }
 
 int				main(void)
 {
 	t_bash		bash;
-	char		*cmd;
+	char		**test;
 
-	cmd = NULL;
 	while (TRUE)
 	{
 		bash.cmd = NULL;
@@ -46,7 +46,11 @@ int				main(void)
 		if (get_source() == SOURCE_EXIT)
 			break ;
 		if (g_bash->cmd != NULL && ft_strlen(g_bash->cmd) != 0)
-			ft_printf("%s\n", g_bash->cmd);
-		free(cmd);
+		{
+			test = g_bash->token;
+			while (*test)
+				ft_printf("|%s|\n", *(test++));
+		}
+		cmd_end_free();
 	}
 }

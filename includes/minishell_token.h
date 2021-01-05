@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/04 20:31:16 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/05 01:25:37 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 # define MINISHELL_TOKEN_H
 
 # include <errno.h>
+
+char			**cmd_split(char *s);
 
 #endif
