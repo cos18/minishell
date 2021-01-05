@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2020/12/20 16:03:52 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/05 00:38:15 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,7 @@
 # define SRC_INIT_POS -2
 # define SRC_EOF -1
 # define SRC_ERRCHAR 0
+
+# define MAX_TOKEN 10000
 
 #endif

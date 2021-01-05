@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   free_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/05 01:21:45 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/05 01:20:30 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/05 01:21:57 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdlib.h>
-# include <stdio.h>
-# include "libft.h"
-# include "minishell_const.h"
-# include "minishell_token.h"
-
-typedef struct	s_bash
+void	cmd_end_free(void)
 {
-	t_source	src;
-	char		**token;
-}				t_bash;
+	free_token(g_bash->token, MAX_TOKEN);
+}
 
-t_bash			*g_bash;
+int		free_token(char **sep, int word_locate)
+{
+	int	locate;
 
-void			print_prompt(int ps);
-int				get_command(char **cmd);
-
-void			cmd_end_free(void);
-int				free_token(char **sep, int word_locate);
-
-#endif
+	locate = -1;
+	while (++locate < word_locate - 1 && sep[locate])
+		free(sep[locate]);
+	free(sep);
+	return (1);
+}

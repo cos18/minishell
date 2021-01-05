@@ -1,6 +1,6 @@
 # .github/workflows/norminette.yml
 name: norminette
-on: [push, pull_request]
+on: [push]
 
 jobs:
   basic_42_test:
