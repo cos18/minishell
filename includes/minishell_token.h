@@ -15,13 +15,6 @@
 
 # include <errno.h>
 
-typedef struct	s_source
-{
-	char		*buf;
-	long		bufsize;
-	long		curpos;
-}				t_source;
-
 char			**cmd_split(char *s);
 
 #endif

@@ -6,17 +6,11 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/05 01:26:37 by sunpark          ###   ########.fr        #
+#    Updated: 2021/01/06 02:41:40 by hyukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c free_utils.c \
-		  tokenize/cmd_io.c tokenize/cmd_split.c \
-		  $(STDIR)/init_stack.c \
-		  $(STDIR)/stack_empty.c \
-		  $(STDIR)/stack_pop.c \
-		  $(STDIR)/stack_push.c \
-		  $(STDIR)/free_stack.c \
+SRC		= main.c free_utils.c tokenize/cmd_io.c tokenize/cmd_split.c
 
 SRCDIR	= ./srcs/
 SRCS	= $(addprefix $(SRCDIR), $(SRC))
@@ -25,8 +19,6 @@ OBJS	= $(SRCS:.c=.o)
 INCDIR	= ./includes/
 LIBDIR	= ./libft/
 LIBNAME	= libft.a
-
-STDIR	= stack
 
 NAME	= minishell
 

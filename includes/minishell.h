@@ -21,14 +21,14 @@
 
 typedef struct	s_bash
 {
-	t_source	src;
+	char		*cmd;
 	char		**token;
 }				t_bash;
 
 t_bash			*g_bash;
 
 void			print_prompt(int ps);
-int				get_command(char **cmd);
+int				get_command(void);
 
 void			cmd_end_free(void);
 int				free_token(char **sep, int word_locate);

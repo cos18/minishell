@@ -14,22 +14,20 @@
 
 static int		get_source(void)
 {
-	char		**cmd;
 	int			cmd_status;
 
-	cmd = &(g_bash->src.buf);
-	cmd_status = get_command(cmd);
+	cmd_status = get_command();
 	if (cmd_status == GET_CMD_ERROR)
 		exit(EXIT_FAILURE);
 	if (cmd_status == GET_CMD_EXIT || cmd_status == GET_CMD_EOF)
 	{
-		if (*cmd)
-			free(*cmd);
+		if (g_bash->cmd)
+			free(g_bash->cmd);
 		if (cmd_status == GET_CMD_EOF)
 			printf("exit\n");
 		return (SOURCE_EXIT);
 	}
-	g_bash->token = cmd_split(*cmd);
+	g_bash->token = cmd_split(g_bash->cmd);
 	return (SOURCE_OK);
 }
 
@@ -40,12 +38,12 @@ int				main(void)
 
 	while (TRUE)
 	{
-		bash.src.buf = NULL;
+		bash.cmd = NULL;
 		g_bash = &bash;
 		print_prompt(PS1);
 		if (get_source() == SOURCE_EXIT)
 			break ;
-		if (g_bash->src.buf != NULL && ft_strlen(g_bash->src.buf))
+		if (g_bash->cmd != NULL && ft_strlen(g_bash->cmd) != 0)
 		{
 			test = g_bash->token;
 			while (*test)
