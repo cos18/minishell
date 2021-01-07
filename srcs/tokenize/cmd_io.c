@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/04 20:15:56 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/07 18:26:10 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,62 +26,62 @@ static char	*ft_join(char *s1, char *s2)
 	size_t	i;
 	size_t	j;
 
-	if (!(r = malloc((s1 ? ft_strlen(s1) : 0) + (s2 ? ft_strlen(s2) : 0) + 2)))
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	if ((r = malloc(ft_strlen(s1) + ft_strlen(s2) + 2)) == NULL)
 		return (NULL);
 	i = -1;
-	while (s1 && s1[++i])
+	while (s1[++i])
 		r[i] = s1[i];
-	i > 0 ? r[i++] = '\n' : FALSE;
+	if (i > 0)
+		r[i++] = '\n';
 	j = -1;
-	while (s2 && s2[++j])
+	while (s2[++j])
 		r[i + j] = s2[j];
 	r[i + j] = '\0';
-	if (s1)
-	{
-		free(s1);
-		s1 = NULL;
-	}
-	if (s2)
-	{
-		free(s2);
-		s2 = NULL;
-	}
+	free(s1);
+	s1 = NULL;
+	free(s2);
+	s2 = NULL;
 	return (r);
 }
 
-static char	*ft_strpop(char *str, size_t pop)
-{
-	if (str == NULL || ft_strlen(str) <= pop)
-		return (NULL);
-	pop -= 1;
-	while (str[++pop])
-		str[pop] = str[pop + 1];
-	return (str);
-}
-
-static int	check_quotes(char *str, char *quote)
+static void	handle_quote(char *quote, char *s)
 {
 	int		i;
 
-	if (str == NULL || ft_strlen(str) == 0 || quote == NULL)
-		return (FALSE);
 	i = -1;
-	while (str[++i])
+	while (s[++i])
 	{
-		if (*quote == 0 && (str[i] == '\'' || str[i] == '"'))
+		if (s[i] == '\'' || s[i] == '"')
 		{
-			*quote = str[i];
-			ft_strpop(str, i);
-			i--;
+			if (*quote == '\0')
+				*quote = s[i];
+			else if (*quote == s[i])
+				*quote = '\0';
 		}
-		else if (*quote != '\0' && *quote == str[i])
+		else if (s[i] == '\\')
 		{
-			*quote = '\0';
-			ft_strpop(str, i);
-			i--;
+			if (*quote == '\0' && s[i + 1] == '\0')
+				*quote = '\\';
+			if (s[i + 1] != '\'')
+				i++;
 		}
 	}
-	return (*quote == '\0');
+}
+
+static char	*handle_str(char *q, char *p, char *s)
+{
+	if (s == NULL || q == NULL)
+		return (NULL);
+	if (p == NULL)
+	{
+		if ((p = malloc(1)) == NULL)
+			return (NULL);
+		p[0] = '\0';
+	}
+	handle_quote(q, s);
+	return (ft_join(p, s));
 }
 
 int			get_command(void)
@@ -93,14 +93,16 @@ int			get_command(void)
 	quote = '\0';
 	while (TRUE)
 	{
+		if (quote == '\\')
+			quote = '\0';
 		if ((gnl_result = get_next_line(0, &tmp)) != GNL_READ || tmp == NULL)
 		{
 			if (g_bash->cmd)
 				free(g_bash->cmd);
 			return (gnl_result);
 		}
-		g_bash->cmd = ft_join(g_bash->cmd, tmp);
-		if (check_quotes(g_bash->cmd, &quote) == TRUE)
+		g_bash->cmd = handle_str(&quote, g_bash->cmd, tmp);
+		if (quote == '\0')
 			break ;
 		print_prompt(PS2);
 	}
