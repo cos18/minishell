@@ -6,11 +6,13 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/06 02:41:40 by hyukim           ###   ########.fr        #
+#    Updated: 2021/01/08 18:38:35 by hyukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c free_utils.c tokenize/cmd_io.c tokenize/cmd_split.c
+SRC		= main.c free_utils.c tokenize/cmd_io.c tokenize/cmd_split.c \
+		  tokenize/sp2cmd.c tokenize/exec_cmd.c tokenize/valid_cmd.c \
+		  tokenize/ft_strequ.c
 
 SRCDIR	= ./srcs/
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

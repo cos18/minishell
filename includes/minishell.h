@@ -6,10 +6,9 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/05 01:21:45 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/08 19:16:25 by hyukim           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
-
+/* ************************************************************************** */ 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -21,7 +20,8 @@
 
 typedef struct	s_bash
 {
-	char		*cmd;
+	char		*input;
+	t_cmd		cmd;
 	char		**token;
 }				t_bash;
 
