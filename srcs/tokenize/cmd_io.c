@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/07 18:26:10 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/08 17:14:24 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ static char	*ft_join(char *s1, char *s2)
 
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	if ((r = malloc(ft_strlen(s1) + ft_strlen(s2) + 2)) == NULL)
-		return (NULL);
+	r = (char *)malloc_safe(ft_strlen(s1) + ft_strlen(s2) + 2);
 	i = -1;
 	while (s1[++i])
 		r[i] = s1[i];
@@ -76,8 +75,7 @@ static char	*handle_str(char *q, char *p, char *s)
 		return (NULL);
 	if (p == NULL)
 	{
-		if ((p = malloc(1)) == NULL)
-			return (NULL);
+		p = (char *)malloc_safe(1);
 		p[0] = '\0';
 	}
 	handle_quote(q, s);

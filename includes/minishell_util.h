@@ -1,34 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_const.h                                  :+:      :+:    :+:   */
+/*   minishell_util.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/08 17:03:08 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/08 16:50:24 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/08 17:13:13 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_CONST_H
-# define MINISHELL_CONST_H
+#ifndef MINISHELL_UTIL_H
+# define MINISHELL_UTIL_H
 
-# define TRUE 1
-# define FALSE 0
+void	cmd_end_free(void);
+int		free_token(char **sep, int word_locate);
 
-# define ERRNO_DEFAULT -1
+void	exec_token(void);
 
-# define PS1 1
-# define PS2 2
-
-# define GET_CMD_ERROR -1
-# define GET_CMD_EOF 0
-# define GET_CMD_READ 1
-# define GET_CMD_EXIT 2
-
-# define SOURCE_OK 0
-# define SOURCE_EXIT 1
-
-# define MAX_TOKEN 10000
+void	throw_error(char *message, int pnum);
+void	*malloc_safe(size_t size);
 
 #endif

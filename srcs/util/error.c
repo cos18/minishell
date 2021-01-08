@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_const.h                                  :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/08 17:03:08 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/08 16:55:22 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/08 17:09:45 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_CONST_H
-# define MINISHELL_CONST_H
+#include "minishell.h"
 
-# define TRUE 1
-# define FALSE 0
+void		throw_error(char *message, int pnum)
+{
+	if (pnum == ERRNO_DEFAULT)
+		pnum = errno;
+	ft_printf("minishell: %s: %s", message, strerror(pnum));
+	exit(EXIT_FAILURE);
+}
 
-# define ERRNO_DEFAULT -1
+void		*malloc_safe(size_t size)
+{
+	void	*result;
 
-# define PS1 1
-# define PS2 2
-
-# define GET_CMD_ERROR -1
-# define GET_CMD_EOF 0
-# define GET_CMD_READ 1
-# define GET_CMD_EXIT 2
-
-# define SOURCE_OK 0
-# define SOURCE_EXIT 1
-
-# define MAX_TOKEN 10000
-
-#endif
+	result = malloc(size);
+	if (result == NULL)
+		throw_error("Malloc failed", ERRNO_DEFAULT);
+	return (result);
+}
