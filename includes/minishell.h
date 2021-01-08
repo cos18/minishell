@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/08 16:54:15 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/08 18:38:56 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 typedef struct	s_bash
 {
+	char		*execute_name;
 	char		*cmd;
 	char		**token;
 }				t_bash;

@@ -1,16 +1,21 @@
-# .github/workflows/norminette.yml
+# .github/workflows/basic_test.yml
 name: norminette
 on: [push]
 
 jobs:
-  basic_42_test:
+  42_norm_test:
     runs-on: ubuntu-latest
-    name: Basic 42 Tests
+    name: 42 Norminette Test
     steps:
     - uses: actions/checkout@v2
     - name: Check norm in srcs & includes
       uses: alexandregv/norminette-action@v2
       with:
         flags: 'srcs includes'
+  42_make_test:
+    runs-on: macos-latest
+    name: 42 Make Test
+    steps:
+    - uses: actions/checkout@v2
     - name: Check basic Makefile jobs
       run: make && make re && make clean && make all && make fclean

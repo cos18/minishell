@@ -6,15 +6,21 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/05 01:21:19 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/08 18:42:10 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		get_source(void)
+static void	bash_init(char **argv, char **envp)
 {
-	int			cmd_status;
+	g_bash->execute_name = argv[0];
+	(void)envp;
+}
+
+static int	get_source(void)
+{
+	int		cmd_status;
 
 	cmd_status = get_command();
 	if (cmd_status == GET_CMD_ERROR)
@@ -31,24 +37,21 @@ static int		get_source(void)
 	return (SOURCE_OK);
 }
 
-int				main(void)
+int			main(int argc, char **argv, char **envp)
 {
-	t_bash		bash;
-	char		**test;
+	t_bash	bash;
 
+	g_bash = &bash;
+	(void)argc;
+	bash_init(argv, envp);
 	while (TRUE)
 	{
 		bash.cmd = NULL;
-		g_bash = &bash;
 		print_prompt(PS1);
 		if (get_source() == SOURCE_EXIT)
 			break ;
 		if (g_bash->cmd != NULL && ft_strlen(g_bash->cmd) != 0)
-		{
-			test = g_bash->token;
-			while (*test)
-				ft_printf("|%s|\n", *(test++));
-		}
+			exec_token();
 		cmd_end_free();
 	}
 }

@@ -6,11 +6,11 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/08 17:13:21 by sunpark          ###   ########.fr        #
+#    Updated: 2021/01/08 18:38:21 by sunpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c tokenize/cmd_io.c tokenize/cmd_split.c \
+SRC		= main.c tokenize/cmd_io.c tokenize/cmd_split.c tokenize/token_util.c \
 		  util/free.c util/exec.c util/error.c
 
 SRCDIR	= ./srcs/
