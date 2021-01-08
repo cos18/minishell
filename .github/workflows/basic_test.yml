@@ -3,7 +3,7 @@ name: norminette
 on: [push]
 
 jobs:
-  42_norm_test:
+  norm_test:
     runs-on: ubuntu-latest
     name: 42 Norminette Test
     steps:
@@ -12,7 +12,7 @@ jobs:
       uses: alexandregv/norminette-action@v2
       with:
         flags: 'srcs includes'
-  42_make_test:
+  make_test:
     runs-on: macos-latest
     name: 42 Make Test
     steps:
