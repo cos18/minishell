@@ -6,9 +6,10 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/08 19:16:25 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/09 16:32:14 by hyukim           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */ 
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -31,6 +32,7 @@ void			print_prompt(int ps);
 int				get_command(void);
 
 void			cmd_end_free(void);
+void			free_cmd(t_cmd *cmd);
 int				free_token(char **sep, int word_locate);
 
 #endif

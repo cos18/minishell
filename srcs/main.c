@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/08 19:16:13 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/09 17:40:49 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,26 @@ static int		get_source(void)
 	if ((token = cmd_split(g_bash->input)) == NULL)
 		return (GET_CMD_ERROR);
 	sp2cmd(token);
+	free_token(token, MAX_TOKEN);
 	return (SOURCE_OK);
+}
+
+static void		init_bash(t_bash *bash)
+{
+	if (bash == NULL)
+		return ;
+	bash->input = NULL;
+	bash->token = NULL;
 }
 
 int				main(void)
 {
 	t_bash		bash;
 
+	init_bash(&bash);
+	g_bash = &bash;
 	while (TRUE)
 	{
-		bash.input = NULL;
-		g_bash = &bash;
 		print_prompt(PS1);
 		if (get_source() == SOURCE_EXIT)
 			break ;
@@ -49,6 +58,6 @@ int				main(void)
 		{
 			exec_cmd(g_bash->cmd);
 		}
-//		cmd_end_free();
+		cmd_end_free();
 	}
 }
