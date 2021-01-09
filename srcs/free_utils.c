@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 01:20:30 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/09 16:28:21 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/09 18:36:50 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	cmd_end_free(void)
 {
+	free(g_bash->input);
+	g_bash->input = NULL;
 	free_cmd(&(g_bash->cmd));
 }
 
