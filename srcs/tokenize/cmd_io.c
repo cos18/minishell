@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/07 18:26:10 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/08 19:17:04 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,17 +97,17 @@ int			get_command(void)
 			quote = '\0';
 		if ((gnl_result = get_next_line(0, &tmp)) != GNL_READ || tmp == NULL)
 		{
-			if (g_bash->cmd)
-				free(g_bash->cmd);
+			if (g_bash->input)
+				free(g_bash->input);
 			return (gnl_result);
 		}
-		g_bash->cmd = handle_str(&quote, g_bash->cmd, tmp);
+		g_bash->input = handle_str(&quote, g_bash->input, tmp);
 		if (quote == '\0')
 			break ;
 		print_prompt(PS2);
 	}
-	if (ft_strncmp(g_bash->cmd, "exit", 5) == 0)
+	if (ft_strncmp(g_bash->input, "exit", 5) == 0)
 		ft_printf("exit\n");
-	return (ft_strncmp(g_bash->cmd, "exit", 5) == 0 ?
+	return (ft_strncmp(g_bash->input, "exit", 5) == 0 ?
 			GET_CMD_EXIT : GET_CMD_READ);
 }
