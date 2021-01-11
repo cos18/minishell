@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_const.h                                  :+:      :+:    :+:   */
+/*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 03:07:37 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/12 02:47:41 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/12 03:01:24 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_CONST_H
-# define MINISHELL_CONST_H
+#include "minishell.h"
 
-# define STDOUT 1
-# define STDERR 2
-
-# define TRUE 1
-# define FALSE 0
-
-# define ERRNO_DEFAULT -1
-
-# define PS1 1
-# define PS2 2
-
-# define GET_CMD_ERROR -1
-# define GET_CMD_EOF 0
-# define GET_CMD_READ 1
-# define GET_CMD_EXIT 2
-
-# define SOURCE_OK 0
-# define SOURCE_EXIT 1
-
-# define MAX_TOKEN 10000
-
-# define MAX_PATH_LEN 4096
-#endif
+void	ft_env(t_envlst *lst)
+{
+	while (lst)
+	{
+		ft_putstr_fd(lst->name, STDOUT);
+		ft_putstr_fd("=", STDOUT);
+		ft_putendl_fd(lst->val, STDOUT);
+		lst = lst->next;
+	}
+}
