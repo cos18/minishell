@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:01:29 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/05 01:25:33 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/08 17:15:18 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,20 @@ static char	*cmd_substr(char *s, size_t len)
 	char	quote;
 
 	totsize = (ft_strlen(s) > len) ? len : ft_strlen(s);
-	result = (char *)malloc(totsize + 1);
-	if (result)
+	result = (char *)malloc_safe(totsize + 1);
+	locate = -1;
+	tmp = result;
+	while (++locate < totsize)
 	{
-		locate = -1;
-		tmp = result;
-		while (++locate < totsize)
-		{
-			if ((s[locate] == '\'' || s[locate] == '\"') && (quote == '\0'))
-				quote = s[locate];
-			else if ((s[locate] == '\'' || s[locate] == '\"')
-							&& (quote == s[locate]))
-				quote = '\0';
-			else
-				*(tmp++) = s[locate];
-		}
-		*(tmp++) = '\0';
+		if ((s[locate] == '\'' || s[locate] == '\"') && (quote == '\0'))
+			quote = s[locate];
+		else if ((s[locate] == '\'' || s[locate] == '\"')
+						&& (quote == s[locate]))
+			quote = '\0';
+		else
+			*(tmp++) = s[locate];
 	}
+	*(tmp++) = '\0';
 	return (result);
 }
 
@@ -117,8 +114,8 @@ char		**cmd_split(char *s)
 	if (!s)
 		return (NULL);
 	words = count_token(s);
-	result = (char **)malloc(sizeof(char *) * (words + 1));
-	if (result && get_sep_token(result, s))
+	result = (char **)malloc_safe(sizeof(char *) * (words + 1));
+	if (get_sep_token(result, s))
 		result = NULL;
 	return (result);
 }

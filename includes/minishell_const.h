@@ -6,15 +6,19 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/05 00:38:15 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/11 18:43:17 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_CONST_H
 # define MINISHELL_CONST_H
 
+# define STDERR 2
+
 # define TRUE 1
 # define FALSE 0
+
+# define ERRNO_DEFAULT -1
 
 # define PS1 1
 # define PS2 2
@@ -26,10 +30,6 @@
 
 # define SOURCE_OK 0
 # define SOURCE_EXIT 1
-
-# define SRC_INIT_POS -2
-# define SRC_EOF -1
-# define SRC_ERRCHAR 0
 
 # define MAX_TOKEN 10000
 
