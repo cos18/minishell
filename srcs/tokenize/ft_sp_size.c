@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_util.h                                   :+:      :+:    :+:   */
+/*   ft_sp_size.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 16:50:24 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:25:59 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/08 16:54:52 by hyukim            #+#    #+#             */
+/*   Updated: 2021/01/09 16:29:16 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_UTIL_H
-# define MINISHELL_UTIL_H
+#include "minishell.h"
 
-void	cmd_end_free(void);
-int		free_token(char **sep, int word_locate);
+size_t	ft_sp_size(char **sp)
+{
+	size_t	cnt;
 
-void	throw_error(char *message, int pnum);
-void	*malloc_safe(size_t size);
-
-#endif
+	if (sp == NULL)
+		return (0);
+	cnt = 0;
+	while (sp[cnt])
+		cnt++;
+	return (cnt);
+}
