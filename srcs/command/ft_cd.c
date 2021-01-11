@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_command.h                                :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 15:52:01 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/11 17:21:54 by hyukim           ###   ########.fr       */
+/*   Created: 2021/01/11 17:12:37 by hyukim            #+#    #+#             */
+/*   Updated: 2021/01/11 17:22:33 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_COMMAND_H
-# define MINISHELL_COMMAND_H
+#include "minishell.h"
 
-# include <unistd.h>
-# include <string.h>
-# include "minishell_token.h"
-
-# define MAX_PATH_LEN 4096
-
-void		ft_pwd(void);
-void		ft_cd(t_cmd cmd);
-#endif
+void	ft_cd(t_cmd cmd)
+{
+	if (cmd.name == NULL || cmd.arg == NULL || ft_sp_size(cmd.arg) == 0)
+		return ;
+	if (chdir(cmd.arg[0]) == -1)
+		ft_printf("bash: cd: %s: %s\n", cmd.arg[0], strerror(errno));
+}

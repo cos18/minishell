@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:55:16 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/11 16:04:08 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/11 17:20:47 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		exec_cmd(t_cmd cmd)
 	if (ft_strequ(cmd.name, "echo"))
 		ft_printf("ECHO\n");
 	else if (ft_strequ(cmd.name, "cd"))
-		ft_printf("CD\n");
+		ft_cd(cmd);
 	else if (ft_strequ(cmd.name, "pwd"))
 		ft_pwd();
 	else if (ft_strequ(cmd.name, "export"))
