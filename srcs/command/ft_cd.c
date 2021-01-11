@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:12:37 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/11 17:22:33 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/11 19:33:06 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 void	ft_cd(t_cmd cmd)
 {
-	if (cmd.name == NULL || cmd.arg == NULL || ft_sp_size(cmd.arg) == 0)
+	char	*err_msg;
+
+	if (cmd.arg == NULL || ft_sp_size(cmd.arg) == 0 || cmd.arg[0] == NULL)
 		return ;
 	if (chdir(cmd.arg[0]) == -1)
-		ft_printf("bash: cd: %s: %s\n", cmd.arg[0], strerror(errno));
+	{
+		if ((err_msg = ft_strjoin("cd: ", cmd.arg[0])) == NULL)
+			return ;
+		throw_error(err_msg, errno, FALSE);
+		free(err_msg);
+	}
 }
