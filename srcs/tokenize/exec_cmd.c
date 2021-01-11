@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:55:16 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/08 18:30:23 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/11 16:04:08 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void		exec_cmd(t_cmd cmd)
 {
 	if (cmd.name == NULL)
 		return ;
-	if (ft_strequ(cmd.name, ""))
-		ft_printf("EMPTY CMD\n");
 	if (ft_strequ(cmd.name, "echo"))
 		ft_printf("ECHO\n");
 	else if (ft_strequ(cmd.name, "cd"))
 		ft_printf("CD\n");
 	else if (ft_strequ(cmd.name, "pwd"))
-		ft_printf("PWD\n");
+		ft_pwd();
 	else if (ft_strequ(cmd.name, "export"))
 		ft_printf("EXPORT\n");
 	else if (ft_strequ(cmd.name, "unset"))
