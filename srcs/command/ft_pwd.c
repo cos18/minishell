@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:51:14 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/11 19:24:04 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/12 02:41:55 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	ft_pwd(void)
 	if (getcwd(dir, MAX_PATH_LEN) == NULL)
 		throw_error("pwd", errno, FALSE);
 	else
-		ft_printf("%s\n", dir);
+		ft_putendl_fd(dir, STDOUT);
 }
