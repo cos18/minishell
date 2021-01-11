@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:46:55 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/08 16:55:16 by hyukim            #+#    #+#             */
+/*   Updated: 2021/01/11 19:14:13 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ void		exec_cmd(t_cmd cmd)
 {
 	if (cmd.name == NULL)
 		return ;
-	if (ft_strequ(cmd.name, ""))
-		ft_printf("EMPTY CMD\n");
 	if (ft_strequ(cmd.name, "echo"))
 		ft_printf("ECHO\n");
 	else if (ft_strequ(cmd.name, "cd"))
-		ft_printf("CD\n");
+		ft_cd(cmd);
 	else if (ft_strequ(cmd.name, "pwd"))
-		ft_printf("PWD\n");
+		ft_pwd();
 	else if (ft_strequ(cmd.name, "export"))
 		ft_printf("EXPORT\n");
 	else if (ft_strequ(cmd.name, "unset"))

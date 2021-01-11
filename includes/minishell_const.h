@@ -6,13 +6,14 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:43:17 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/12 02:36:47 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_CONST_H
 # define MINISHELL_CONST_H
 
+# define STDOUT 1
 # define STDERR 2
 
 # define TRUE 1
@@ -33,4 +34,5 @@
 
 # define MAX_TOKEN 10000
 
+# define MAX_PATH_LEN 4096
 #endif

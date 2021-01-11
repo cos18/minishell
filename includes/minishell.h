@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:29:11 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/11 19:12:47 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "minishell_util.h"
 # include "minishell_token.h"
 # include "minishell_execute.h"
+# include "minishell_command.h"
 
 typedef struct	s_bash
 {
