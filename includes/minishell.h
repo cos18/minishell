@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 15:52:21 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/11 19:12:47 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 
 # include <stdlib.h>
 # include <stdio.h>
+# include <unistd.h>
+# include <sys/wait.h>
+# include <string.h>
+# include <errno.h>
 # include "libft.h"
 # include "minishell_const.h"
+# include "minishell_util.h"
 # include "minishell_token.h"
+# include "minishell_execute.h"
 # include "minishell_command.h"
 
 typedef struct	s_bash
 {
+	char		*execute_name;
 	char		*input;
 	t_cmd		cmd;
 	char		**token;

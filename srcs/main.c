@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/09 17:40:49 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/11 18:28:55 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,7 @@ int				main(void)
 		if (get_source() == SOURCE_EXIT)
 			break ;
 		if (g_bash->input != NULL && ft_strlen(g_bash->input) != 0)
-		{
 			exec_cmd(g_bash->cmd);
-		}
 		cmd_end_free();
 	}
 }
