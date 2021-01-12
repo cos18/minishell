@@ -6,7 +6,7 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/12 03:07:23 by sunpark          ###   ########.fr        #
+#    Updated: 2021/01/12 15:32:12 by sunpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ SRC		= main.c tokenize/cmd_io.c tokenize/cmd_split.c tokenize/token_util.c \
 		  env/envlst.c env/envlst_util.c \
 		  execute/exec.c \
 		  util/free.c util/error.c \
-		  command/ft_pwd.c command/ft_cd.c command/ft_env.c	  
+		  command/ft_pwd.c command/ft_cd.c command/ft_env.c	command/ft_export.c \
+		  command/ft_unset.c
 
 SRCDIR	= ./srcs/
 SRCS	= $(addprefix $(SRCDIR), $(SRC))

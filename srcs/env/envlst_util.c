@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 00:22:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 02:46:43 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/12 15:46:33 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,9 +102,9 @@ void			envlst_del(t_envlst **lst, char *name)
 		return ;
 	}
 	prev = *lst;
-	while (prev && ft_strequ((*lst)->name, name) == FALSE)
+	while (prev->next && ft_strequ(prev->next->name, name) == FALSE)
 		prev = prev->next;
-	if (prev == NULL)
+	if (prev->next == NULL)
 		return ;
 	target = prev->next;
 	prev->next = target->next;

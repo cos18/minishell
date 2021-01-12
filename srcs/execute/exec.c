@@ -6,13 +6,11 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 03:08:06 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/12 15:31:37 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_env(t_envlst *lst);
 
 void		exec_cmd(t_cmd cmd)
 {
@@ -25,9 +23,9 @@ void		exec_cmd(t_cmd cmd)
 	else if (ft_strequ(cmd.name, "pwd"))
 		ft_pwd();
 	else if (ft_strequ(cmd.name, "export"))
-		ft_printf("EXPORT\n");
+		ft_export(cmd, &(g_bash->envlst));
 	else if (ft_strequ(cmd.name, "unset"))
-		ft_printf("UNSET\n");
+		ft_unset(cmd, &(g_bash->envlst));
 	else if (ft_strequ(cmd.name, "env"))
 		ft_env(g_bash->envlst);
 	else if (ft_strequ(cmd.name, "exit"))
