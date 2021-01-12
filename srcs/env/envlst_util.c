@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 00:22:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 15:46:33 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/12 16:27:09 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,7 @@ void			envlst_append(t_envlst **lst, char *equation)
 	if (check_equation(&locate, equation) == FALSE)
 		return ;
 	name = ft_strndup(equation, locate);
-	target = *lst;
-	while (target)
-	{
-		if (ft_strequ(target->name, name))
-			break ;
-		target = target->next;
-	}
+	target = envlst_get(*lst, name);
 	free(name);
 	if (target == NULL)
 		envlst_add(lst, equation);

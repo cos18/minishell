@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 18:55:14 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 02:39:32 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/12 16:53:08 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void				envlst_append(t_envlst **lst, char *equation);
 void				envlst_del(t_envlst **lst, char *name);
 
 t_envlst			*envlst_init(char **envp);
-char				*envlst_get_val(t_envlst *lst, char *name);
+t_envlst			*envlst_get(t_envlst *lst, char *name);
 void				envlst_free(t_envlst *lst);
+void				envlst_set_pwd(t_envlst *lst);
 
 #endif

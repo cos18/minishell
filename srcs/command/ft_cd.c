@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:12:37 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/11 19:33:06 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/12 16:53:51 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,5 @@ void	ft_cd(t_cmd cmd)
 		throw_error(err_msg, errno, FALSE);
 		free(err_msg);
 	}
+	envlst_set_pwd(g_bash->envlst);
 }
