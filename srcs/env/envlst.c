@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 18:59:43 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 17:00:52 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/12 17:03:13 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			envlst_set_pwd(t_envlst *lst)
 {
 	t_envlst	*oldpwd;
 	t_envlst	*pwd;
-	
+
 	oldpwd = envlst_get(lst, ENV_OLDPWD);
 	pwd = envlst_get(lst, ENV_PWD);
 	if (pwd)
