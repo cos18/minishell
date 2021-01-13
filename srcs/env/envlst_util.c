@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 00:22:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 17:45:18 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:56:49 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void			envlst_append(t_envlst **lst, char *name, char *equation, int l)
 	char		*tmp;
 
 	is_addition = FALSE;
-	if (name[l-1] == '+')
+	if (name[l - 1] == '+')
 	{
-		name[l-1] = '\0';
+		name[l - 1] = '\0';
 		is_addition = TRUE;
 	}
 	target = envlst_get(*lst, name);
@@ -81,8 +81,8 @@ void			envlst_append(t_envlst **lst, char *name, char *equation, int l)
 	else if (equation[l] != '\0')
 	{
 		tmp = target->val;
-		target->val = is_addition ? ft_strjoin(tmp ? tmp : "", equation + l + 1)
-						: ft_strdup(equation + l + 1);
+		target->val = (is_addition ? ft_strjoin(tmp ? tmp : "", equation + l + 1)
+						: ft_strdup(equation + l + 1));
 		if (target->val == NULL)
 			throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
 		if (tmp)
