@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:55:22 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:44:20 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:15:29 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void		throw_error(char *message, int pnum, int is_end)
 	ft_putstr_fd(message, STDERR);
 	ft_putstr_fd(": ", STDERR);
 	ft_putendl_fd(strerror(pnum), STDERR);
+	if (is_end)
+		exit(EXIT_FAILURE);
+}
+
+void		throw_custom_desc_error(char *message, char *desc, int is_end)
+{
+	ft_putstr_fd("minishell: ", STDERR);
+	ft_putstr_fd(message, STDERR);
+	ft_putstr_fd(": ", STDERR);
+	ft_putendl_fd(desc, STDERR);
 	if (is_end)
 		exit(EXIT_FAILURE);
 }

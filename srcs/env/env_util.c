@@ -1,27 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 02:47:41 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 16:48:47 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/13 14:26:15 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_envlst *lst)
+int		env_valid_name(char *name)
 {
-	while (lst)
+	int	check_num;
+
+	if (!name)
+		return (FALSE);
+	check_num = TRUE;
+	while (*name)
 	{
-		if (lst->val != NULL)
-		{
-			ft_putstr_fd(lst->name, STDOUT);
-			ft_putstr_fd("=", STDOUT);
-			ft_putendl_fd(lst->val, STDOUT);
-		}
-		lst = lst->next;
+		if (check_num == TRUE && ft_isdigit(*name))
+			return (FALSE);
+		if (ft_isalnum(*name) == FALSE && *name != '_')
+			return (FALSE);
+		name++;
+		check_num = FALSE;
 	}
+	return (TRUE);
 }

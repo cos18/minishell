@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 00:22:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 16:27:09 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:04:43 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ void			envlst_free_one(t_envlst *lst)
 	}
 }
 
-static int		check_equation(int *locate, char *equation)
+int				envlst_check_equation(int *locate, char *equation)
 {
 	*locate = 0;
 	while (equation[*locate] != '=' && equation[*locate] != '\0')
 		(*locate)++;
-	if (*locate == 0 || equation[*locate] == '\0')
+	if (*locate == 0)
 		return (FALSE);
 	return (TRUE);
 }
@@ -39,7 +39,7 @@ void			envlst_add(t_envlst **lst, char *equation)
 	t_envlst	*now;
 	int			locate;
 
-	if (check_equation(&locate, equation) == FALSE)
+	if (envlst_check_equation(&locate, equation) == FALSE)
 		return ;
 	if (*lst == NULL)
 	{
@@ -56,30 +56,26 @@ void			envlst_add(t_envlst **lst, char *equation)
 	}
 	now->next = NULL;
 	now->name = ft_strndup(equation, locate);
-	now->val = ft_strndup(equation + locate + 1,
-							ft_strlen(equation + locate + 1));
-	if (now->name == NULL || now->val == NULL)
+	now->val = ((int)ft_strlen(equation) == locate ?
+					NULL : ft_strdup(equation + locate + 1));
+	if (now->name == NULL ||
+			((int)ft_strlen(equation) != locate && now->val == NULL))
 		throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
 }
 
-void			envlst_append(t_envlst **lst, char *equation)
+void			envlst_append(t_envlst **lst, char *name, char *equation, int l)
 {
 	t_envlst	*target;
-	char		*name;
-	int			locate;
 
-	if (check_equation(&locate, equation) == FALSE)
-		return ;
-	name = ft_strndup(equation, locate);
 	target = envlst_get(*lst, name);
-	free(name);
 	if (target == NULL)
 		envlst_add(lst, equation);
-	else
+	else if (equation[l] != '\0')
 	{
-		free(target->val);
-		target->val = ft_strndup(equation + locate + 1,
-									ft_strlen(equation + locate + 1));
+		if (target->val)
+			free(target->val);
+		printf(">%s<\n", equation + l + 1);
+		target->val = ft_strdup(equation + l + 1);
 	}
 }
 
