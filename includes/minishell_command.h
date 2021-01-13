@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_command.h                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 15:52:01 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/12 02:42:18 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/12 15:30:16 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,12 @@
 # include <unistd.h>
 # include <string.h>
 # include "minishell_token.h"
+# include "minishell_env.h"
 
-void		ft_pwd(void);
-void		ft_cd(t_cmd cmd);
+void	ft_pwd(void);
+void	ft_cd(t_cmd cmd);
+void	ft_env(t_envlst *lst);
+void	ft_unset(t_cmd cmd, t_envlst **lst);
+void	ft_export(t_cmd cmd, t_envlst **lst);
+
 #endif

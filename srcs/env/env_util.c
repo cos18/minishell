@@ -1,29 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   env_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 17:12:37 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/12 16:53:51 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/13 20:12:21 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_cd(t_cmd cmd)
+int		env_valid_name(char *name, int is_export)
 {
-	char	*err_msg;
+	int	check_num;
 
-	if (cmd.arg == NULL || ft_sp_size(cmd.arg) == 0 || cmd.arg[0] == NULL)
-		return ;
-	if (chdir(cmd.arg[0]) == -1)
+	if (!name)
+		return (FALSE);
+	check_num = TRUE;
+	while (*name)
 	{
-		if ((err_msg = ft_strjoin("cd: ", cmd.arg[0])) == NULL)
-			return ;
-		throw_error(err_msg, errno, FALSE);
-		free(err_msg);
+		if (check_num == TRUE && ft_isdigit(*name))
+			return (FALSE);
+		if (ft_isalnum(*name) == FALSE && *name != '_')
+		{
+			if (is_export && *name == '+' && *(name + 1) == '\0')
+				return (TRUE);
+			return (FALSE);
+		}
+		name++;
+		check_num = FALSE;
 	}
-	envlst_set_pwd(g_bash->envlst);
+	return (TRUE);
 }

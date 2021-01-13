@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 02:36:47 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/12 16:11:15 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,8 @@
 # define MAX_TOKEN 10000
 
 # define MAX_PATH_LEN 4096
+
+# define ENV_PWD "PWD"
+# define ENV_OLDPWD "OLDPWD"
+
 #endif

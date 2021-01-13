@@ -6,16 +6,16 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:28:55 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:53:36 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int		get_source(void)
+static int	get_source(void)
 {
-	int			cmd_status;
-	char		**token;
+	char	**token;
+	int		cmd_status;
 
 	cmd_status = get_command();
 	if (cmd_status == GET_CMD_ERROR)
@@ -35,20 +35,20 @@ static int		get_source(void)
 	return (SOURCE_OK);
 }
 
-static void		init_bash(t_bash *bash)
+static void	init_bash(char **argv, char **envp)
 {
-	if (bash == NULL)
-		return ;
-	bash->input = NULL;
-	bash->token = NULL;
+	g_bash->input = NULL;
+	g_bash->token = NULL;
+	g_bash->execute_name = argv[0];
+	g_bash->envlst = envlst_init(envp);
 }
 
-int				main(void)
+int			main(int argc, char **argv, char **envp)
 {
-	t_bash		bash;
+	t_bash	bash;
 
-	init_bash(&bash);
 	g_bash = &bash;
+	init_bash(argv, envp);
 	while (TRUE)
 	{
 		print_prompt(PS1);
@@ -58,4 +58,6 @@ int				main(void)
 			exec_cmd(g_bash->cmd);
 		cmd_end_free();
 	}
+	envlst_free(g_bash->envlst);
+	(void)argc;
 }

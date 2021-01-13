@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/08 16:55:16 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/11 19:14:13 by hyukim           ###   ########.fr       */
+/*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/12 15:31:37 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ void		exec_cmd(t_cmd cmd)
 	else if (ft_strequ(cmd.name, "pwd"))
 		ft_pwd();
 	else if (ft_strequ(cmd.name, "export"))
-		ft_printf("EXPORT\n");
+		ft_export(cmd, &(g_bash->envlst));
 	else if (ft_strequ(cmd.name, "unset"))
-		ft_printf("UNSET\n");
+		ft_unset(cmd, &(g_bash->envlst));
 	else if (ft_strequ(cmd.name, "env"))
-		ft_printf("ENV\n");
+		ft_env(g_bash->envlst);
 	else if (ft_strequ(cmd.name, "exit"))
 		exit(0);
 	else
