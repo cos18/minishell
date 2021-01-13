@@ -6,11 +6,29 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:28:58 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 17:24:24 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:50:40 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	export_print_env(t_envlst *lst)
+{
+	while (lst)
+	{
+		ft_putstr_fd("declare -x ", STDOUT);
+		ft_putstr_fd(lst->name, STDOUT);
+		if (lst->val)
+		{
+			ft_putstr_fd("=\"", STDOUT);
+			ft_putstr_fd(lst->val, STDOUT);
+			ft_putendl_fd("\"", STDOUT);
+		}
+		else
+			ft_putendl_fd("", STDOUT);
+		lst = lst->next;
+	}
+}
 
 static void	export_error_handling(char *equation)
 {
@@ -35,6 +53,8 @@ void		ft_export(t_cmd cmd, t_envlst **lst)
 	int		locate;
 
 	target = cmd.arg;
+	if (*target == NULL)
+		export_print_env(*lst);
 	while (*target)
 	{
 		if (envlst_check_equation(&locate, *target) == FALSE)

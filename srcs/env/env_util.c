@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 14:26:15 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 17:50:05 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,11 @@ int		env_valid_name(char *name)
 		if (check_num == TRUE && ft_isdigit(*name))
 			return (FALSE);
 		if (ft_isalnum(*name) == FALSE && *name != '_')
+		{
+			if (*name == '+' && *(name + 1) == '\0')
+				return (TRUE);
 			return (FALSE);
+		}
 		name++;
 		check_num = FALSE;
 	}
