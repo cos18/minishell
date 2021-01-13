@@ -6,13 +6,13 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 17:50:05 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 20:12:21 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		env_valid_name(char *name)
+int		env_valid_name(char *name, int is_export)
 {
 	int	check_num;
 
@@ -25,7 +25,7 @@ int		env_valid_name(char *name)
 			return (FALSE);
 		if (ft_isalnum(*name) == FALSE && *name != '_')
 		{
-			if (*name == '+' && *(name + 1) == '\0')
+			if (is_export && *name == '+' && *(name + 1) == '\0')
 				return (TRUE);
 			return (FALSE);
 		}

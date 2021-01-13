@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 18:55:14 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 16:46:36 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 20:12:38 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ t_envlst			*envlst_get(t_envlst *lst, char *name);
 void				envlst_free(t_envlst *lst);
 void				envlst_set_pwd(t_envlst *lst);
 
-int					env_valid_name(char *name);
+int					env_valid_name(char *name, int is_export);
 
 #endif

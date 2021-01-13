@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:28:58 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 17:50:40 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/13 20:12:56 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void		ft_export(t_cmd cmd, t_envlst **lst)
 			continue;
 		}
 		name = ft_strndup(*target, locate);
-		if (env_valid_name(name))
+		if (env_valid_name(name, TRUE))
 			envlst_append(lst, name, *target, locate);
 		else
 			export_error_handling(*target);
