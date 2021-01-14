@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 01:00:41 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 01:23:47 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		exec_outside(t_cmd cmd)
 	if (errno == 14)
 		throw_custom_desc_error(cmd.name, "command not found", FALSE);
 	else
-		throw_error(cmd.name, ERRNO_DEFAULT ,FALSE);
+		throw_error(cmd.name, ERRNO_DEFAULT, FALSE);
 	exit(127);
 }
 
@@ -57,12 +57,11 @@ void		exec(t_cmd cmd)
 	int		wc;
 	int		pid;
 
- 	pid = fork();
- 	if (pid < 0)
- 		throw_error(cmd.name, ERRNO_DEFAULT, TRUE);
- 	else if (pid == 0)
+	pid = fork();
+	if (pid < 0)
+		throw_error(cmd.name, ERRNO_DEFAULT, TRUE);
+	else if (pid == 0)
 		exec_cmd(cmd);
- 	else
- 		wc = wait(NULL);
- }
- 
+	else
+		wc = wait(NULL);
+}
