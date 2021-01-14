@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/14 20:29:33 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 23:57:47 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <sys/wait.h>
 # include <string.h>
+# include <dirent.h>
 # include <errno.h>
 # include "libft.h"
 # include "minishell_const.h"

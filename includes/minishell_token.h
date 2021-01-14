@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:33:55 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 01:03:07 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,11 @@ typedef struct	s_cmd
 {
 	char		*name;
 	char		**arg;
+	char		**token;
 }				t_cmd;
 
 char			**cmd_split(char *s);
 
-char			**token_cpy(char **token);
-
-size_t			ft_sp_size(char **sp);
 void			sp2cmd(char **sp);
-int				ft_strequ(char *s1, char *s2);
+
 #endif

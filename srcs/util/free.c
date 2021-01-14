@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 01:20:30 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/14 20:29:33 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 00:59:49 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	free_cmd(t_cmd *cmd)
 		free(cmd->arg);
 		cmd->arg = NULL;
 	}
+	if (cmd->token)
+		free_split(cmd->token, MAX_SPLIT);
 }
 
 int		free_split(char **sep, int word_locate)
