@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 15:31:37 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 18:36:51 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void		exec_cmd(t_cmd cmd)
 	if (cmd.name == NULL)
 		return ;
 	if (ft_strequ(cmd.name, "echo"))
-		ft_printf("ECHO\n");
+		ft_echo(cmd);
 	else if (ft_strequ(cmd.name, "cd"))
 		ft_cd(cmd);
 	else if (ft_strequ(cmd.name, "pwd"))

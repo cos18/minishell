@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 17:53:36 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 19:09:50 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->token = NULL;
 	g_bash->execute_name = argv[0];
 	g_bash->envlst = envlst_init(envp);
+	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
 }
 
 int			main(int argc, char **argv, char **envp)
