@@ -1,36 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_util.c                                         :+:      :+:    :+:   */
+/*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/14 20:12:51 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/14 20:14:50 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/14 20:43:30 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		env_valid_name(char *name, int is_export)
+char			**path_init(t_envlst *envlst)
 {
-	int	check_num;
+	t_envlst	*path;
+	char		**split;
 
-	if (!name)
-		return (FALSE);
-	check_num = TRUE;
-	while (*name)
-	{
-		if (check_num == TRUE && ft_isdigit(*name))
-			return (FALSE);
-		if (ft_isalnum(*name) == FALSE && *name != '_')
-		{
-			if (is_export && *name == '+' && *(name + 1) == '\0')
-				return (TRUE);
-			return (FALSE);
-		}
-		name++;
-		check_num = FALSE;
-	}
-	return (TRUE);
+	path = envlst_get(envlst, ENV_PATH);
+	if (path == NULL || path->val == NULL)
+		return (NULL);
+	if ((split = ft_split(path->val, ':')) == NULL)
+		throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
+	return (split);
+}
+
+void			reset_path(char ***path, t_envlst *envlst)
+{
+	free_split(*path, MAX_SPLIT);
+	*path = path_init(envlst);
 }

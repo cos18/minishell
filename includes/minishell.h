@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 03:07:49 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 20:29:33 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_bash
 	char		**token;
 	t_cmd		cmd;
 	t_envlst	*envlst;
+	char		**path;
 }				t_bash;
 
 t_bash			*g_bash;
@@ -43,6 +44,6 @@ int				get_command(void);
 
 void			cmd_end_free(void);
 void			free_cmd(t_cmd *cmd);
-int				free_token(char **sep, int word_locate);
+int				free_split(char **sep, int word_locate);
 
 #endif

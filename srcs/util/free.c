@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 01:20:30 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:21:43 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 20:29:33 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	free_cmd(t_cmd *cmd)
 	}
 }
 
-int		free_token(char **sep, int word_locate)
+int		free_split(char **sep, int word_locate)
 {
 	int	locate;
 

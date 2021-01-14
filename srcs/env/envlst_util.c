@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 00:22:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 18:01:40 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 20:37:20 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void			envlst_append(t_envlst **lst, char *name, char *equation, int l)
 	target = envlst_get(*lst, name);
 	if (target == NULL)
 		envlst_add(lst, equation);
-	else if (equation[l] != '\0')
+	else
 	{
 		tmp = target->val;
 		if (is_addition)
