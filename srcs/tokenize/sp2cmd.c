@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:54:52 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:26:33 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/14 19:54:15 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void			sp2cmd(char **sp)
 		g_bash->cmd.name = NULL;
 		return ;
 	}
-	g_bash->cmd.name = ft_strdup(sp[0]);
+	g_bash->cmd.name = str2arg(sp[0]);
 	i = 0;
 	while (sp[++i])
 		g_bash->cmd.arg[i - 1] = str2arg(sp[i]);
