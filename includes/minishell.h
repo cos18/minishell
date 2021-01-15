@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 14:22:34 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:07:11 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,12 @@ typedef struct	s_bash
 	char		*home;
 	t_cmd		cmd;
 	t_envlst	*envlst;
+	t_envlst	*exit_status;
 	char		**path;
 }				t_bash;
 
 t_bash			*g_bash;
+t_envlst		*g_envlst_first_wrong;
 
 void			print_prompt(int ps);
 int				get_command(void);

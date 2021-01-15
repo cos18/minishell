@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sp2cmd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:54:52 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:54:15 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/15 17:23:52 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,42 @@
 
 static char		*str2arg(char *s)
 {
-	char		*ret;
-	t_envlst	*env;
+	char		*result;
 
-	if (s[0] == '$')
-	{
-		if (s == NULL || ft_strlen(s) < 2)
-			return (ft_strdup(s));
-		ret = s + 1;
-		if ((env = envlst_get(g_bash->envlst, ret)) == NULL)
-			return (NULL);
-		if ((ret = ft_strdup(env->val)) == NULL)
-			return (NULL);
-		return (ret);
-	}
 	if (ft_strequ(s, "~"))
-		return (ft_strdup(g_bash->home));
-	return (ft_strdup(s));
+		result = ft_strdup(g_bash->home);
+	else
+		result = ft_strdup(s);
+	if (result == NULL)
+		throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
+	return (result);
 }
 
-void			sp2cmd(char **sp)
+void			sp2cmd(t_list *lst)
 {
-	size_t	i;
 	size_t	size;
+	t_list	*tmp;
+	int		locate;
 
-	size = ft_sp_size(sp);
-	if (sp == NULL || sp[0] == NULL ||
+	size = ft_lstsize(lst);
+	if (lst == NULL || lst->content == NULL ||
 		(g_bash->cmd.arg = (char **)malloc(sizeof(char *) * size)) == 0)
 	{
 		g_bash->cmd.name = NULL;
 		return ;
 	}
-	g_bash->cmd.name = str2arg(sp[0]);
-	i = 0;
-	while (sp[++i])
-		g_bash->cmd.arg[i - 1] = str2arg(sp[i]);
-	g_bash->cmd.arg[size - 1] = NULL;
+	g_bash->cmd.token = (char **)malloc_safe(sizeof(char *) * size + 1);
+	g_bash->cmd.name = str2arg((char *)(lst->content));
+	g_bash->cmd.token[0] = g_bash->cmd.name;
+	tmp = lst->next;
+	locate = 0;
+	while (tmp)
+	{
+		g_bash->cmd.arg[locate] = str2arg((char *)(tmp->content));
+		g_bash->cmd.token[locate + 1] = g_bash->cmd.arg[locate];
+		locate++;
+		tmp = tmp->next;
+	}
+	g_bash->cmd.arg[locate] = NULL;
+	g_bash->cmd.token[locate + 1] = NULL;
 }
