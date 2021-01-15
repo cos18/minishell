@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 17:01:29 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/08 17:15:18 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 20:29:33 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ static int	get_sep_token(char **sep, char *s)
 		{
 			sep[word_locate] = cmd_substr(start, word_size);
 			if (sep[word_locate++] == NULL)
-				return (free_token(sep, word_locate));
+				return (free_split(sep, word_locate));
 			word_size = -1;
 		}
 		check_quote_and_next(&s, &quote, &word_size);

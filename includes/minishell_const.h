@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 16:11:15 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 20:42:21 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@
 # define SOURCE_OK 0
 # define SOURCE_EXIT 1
 
-# define MAX_TOKEN 10000
+# define MAX_SPLIT 10000
 
 # define MAX_PATH_LEN 4096
 
 # define ENV_PWD "PWD"
 # define ENV_OLDPWD "OLDPWD"
+# define ENV_PATH "PATH"
+# define ENV_PATH_WITHPLUS "PATH+"
 
 #endif

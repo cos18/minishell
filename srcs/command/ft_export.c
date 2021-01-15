@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:28:58 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 20:12:56 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 00:35:14 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,16 @@ static void	export_error_handling(char *equation)
 	free(err_msg);
 }
 
-void		ft_export(t_cmd cmd, t_envlst **lst)
+void		ft_export(char **target, t_envlst **lst, char ***path)
 {
-	char	**target;
 	char	*name;
 	int		locate;
 
-	target = cmd.arg;
 	if (*target == NULL)
 		export_print_env(*lst);
 	while (*target)
 	{
-		if (envlst_check_equation(&locate, *target) == FALSE)
+		if (check_equation(&locate, *target) == FALSE)
 		{
 			export_error_handling(*target);
 			target++;
@@ -68,6 +66,8 @@ void		ft_export(t_cmd cmd, t_envlst **lst)
 			envlst_append(lst, name, *target, locate);
 		else
 			export_error_handling(*target);
+		if (ft_strequ(name, ENV_PATH) || ft_strequ(name, ENV_PATH_WITHPLUS))
+			reset_path(path, *lst);
 		free(name);
 		target++;
 	}

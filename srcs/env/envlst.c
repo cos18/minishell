@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 18:59:43 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/12 17:03:13 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 00:11:58 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,15 @@ t_envlst		*envlst_get(t_envlst *lst, char *name)
 
 void			envlst_free(t_envlst *lst)
 {
+	if (lst == NULL)
+		return ;
 	if (lst->next)
 		envlst_free(lst->next);
-	envlst_free_one(lst);
+	if (lst->name)
+		free(lst->name);
+	if (lst->val)
+		free(lst->val);
+	free(lst);
 }
 
 static t_envlst	*envlst_add_name(t_envlst *lst, char *name)
