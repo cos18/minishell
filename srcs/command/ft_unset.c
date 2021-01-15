@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:11:41 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 20:15:19 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/14 20:50:27 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	unset_error_handling(char *name)
 	free(err_msg);
 }
 
-void		ft_unset(t_cmd cmd, t_envlst **lst)
+void		ft_unset(t_cmd cmd, t_envlst **lst, char ***path)
 {
 	char	**target;
 
@@ -36,12 +36,11 @@ void		ft_unset(t_cmd cmd, t_envlst **lst)
 	while (*target)
 	{
 		if (env_valid_name(*target, FALSE) == FALSE)
-		{
 			unset_error_handling(*target);
-			target++;
-			continue;
-		}
-		envlst_del(lst, *target);
+		else
+			envlst_del(lst, *target);
+		if (ft_strequ(*target, ENV_PATH))
+			reset_path(path, *lst);
 		target++;
 	}
 }

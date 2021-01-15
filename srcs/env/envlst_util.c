@@ -6,32 +6,15 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 00:22:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 18:01:40 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 00:40:47 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			envlst_free_one(t_envlst *lst)
+int				envlst_cnt(t_envlst *lst)
 {
-	if (lst)
-	{
-		if (lst->name)
-			free(lst->name);
-		if (lst->val)
-			free(lst->val);
-		free(lst);
-	}
-}
-
-int				envlst_check_equation(int *locate, char *equation)
-{
-	*locate = 0;
-	while (equation[*locate] != '=' && equation[*locate] != '\0')
-		(*locate)++;
-	if (*locate == 0)
-		return (FALSE);
-	return (TRUE);
+	return (lst ? 1 + envlst_cnt(lst->next) : 0);
 }
 
 void			envlst_add(t_envlst **lst, char *equation)
@@ -39,7 +22,7 @@ void			envlst_add(t_envlst **lst, char *equation)
 	t_envlst	*now;
 	int			locate;
 
-	if (envlst_check_equation(&locate, equation) == FALSE)
+	if (check_equation(&locate, equation) == FALSE)
 		return ;
 	if (*lst == NULL)
 	{
@@ -78,7 +61,7 @@ void			envlst_append(t_envlst **lst, char *name, char *equation, int l)
 	target = envlst_get(*lst, name);
 	if (target == NULL)
 		envlst_add(lst, equation);
-	else if (equation[l] != '\0')
+	else
 	{
 		tmp = target->val;
 		if (is_addition)
@@ -101,15 +84,44 @@ void			envlst_del(t_envlst **lst, char *name)
 	{
 		target = *lst;
 		*lst = target->next;
-		envlst_free_one(target);
-		return ;
 	}
-	prev = *lst;
-	while (prev->next && ft_strequ(prev->next->name, name) == FALSE)
-		prev = prev->next;
-	if (prev->next == NULL)
-		return ;
-	target = prev->next;
-	prev->next = target->next;
-	envlst_free_one(target);
+	else
+	{
+		prev = *lst;
+		while (prev->next && ft_strequ(prev->next->name, name) == FALSE)
+			prev = prev->next;
+		if (prev->next == NULL)
+			return ;
+		target = prev->next;
+		prev->next = target->next;
+	}
+	if (target->name)
+		free(target->name);
+	if (target->val)
+		free(target->val);
+	free(target);
+}
+
+char			**envlst_to_char(t_envlst *lst)
+{
+	char		**result;
+	char		*tmp;
+	int			locate;
+
+	result = (char **)malloc_safe(sizeof(char *) * (envlst_cnt(lst) + 1));
+	locate = 0;
+	while (lst)
+	{
+		if (lst->val)
+		{
+			tmp = ft_strjoin(lst->name, "=");
+			result[locate] = strjoin_free_a(tmp, lst->val);
+			if (result[locate] == NULL && free_split(result, locate))
+				return (NULL);
+			locate++;
+		}
+		lst = lst->next;
+	}
+	result[locate] = NULL;
+	return (result);
 }
