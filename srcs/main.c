@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:41:51 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/15 23:30:23 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->cmd.name = NULL;
 	g_bash->cmd.arg = NULL;
 	g_bash->cmd.token = NULL;
-	g_bash->exit = 0;
+	g_bash->exit_status = 0;
 	g_bash->forked = FALSE;
 }
 
