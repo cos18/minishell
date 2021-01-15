@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:50:24 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 01:03:17 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 16:59:46 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,5 @@ size_t	ft_sp_size(char **sp);
 int		check_equation(int *locate, char *equation);
 char	*strjoin_free_a(char *a, char *b);
 
+void	sighandler(int signo);
 #endif

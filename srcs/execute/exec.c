@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 01:23:47 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 23:23:53 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,14 @@ void		exec(t_cmd cmd)
 	if (pid < 0)
 		throw_error(cmd.name, ERRNO_DEFAULT, TRUE);
 	else if (pid == 0)
+	{
+		g_bash->forked = TRUE;
 		exec_cmd(cmd);
+	}
 	else
+	{
+		g_bash->forked = TRUE;
 		wc = wait(NULL);
+		g_bash->forked = FALSE;
+	}
 }

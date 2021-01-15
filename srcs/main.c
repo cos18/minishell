@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 01:00:31 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:41:51 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ static int	get_source(void)
 	return (SOURCE_OK);
 }
 
+static void	bind_signal(void)
+{
+	signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
+}
+
 static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
@@ -42,6 +48,11 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->execute_name = argv[0];
 	g_bash->envlst = envlst_init(envp);
 	g_bash->path = path_init(g_bash->envlst);
+	g_bash->cmd.name = NULL;
+	g_bash->cmd.arg = NULL;
+	g_bash->cmd.token = NULL;
+	g_bash->exit = 0;
+	g_bash->forked = FALSE;
 }
 
 int			main(int argc, char **argv, char **envp)
@@ -49,6 +60,7 @@ int			main(int argc, char **argv, char **envp)
 	t_bash	bash;
 
 	g_bash = &bash;
+	bind_signal();
 	init_bash(argv, envp);
 	while (TRUE)
 	{

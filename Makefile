@@ -6,14 +6,14 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/22 22:02:20 by sunpark           #+#    #+#              #
-#    Updated: 2021/01/15 01:02:55 by sunpark          ###   ########.fr        #
+#    Updated: 2021/01/15 17:00:18 by hyukim           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRC		= main.c tokenize/cmd_io.c tokenize/cmd_split.c tokenize/sp2cmd.c \
 		  env/envlst.c env/envlst_util.c env/env_util.c env/path.c \
 		  execute/exec.c \
-		  util/free.c util/error.c util/util.c \
+		  util/free.c util/error.c util/util.c util/signal.c \
 		  command/ft_pwd.c command/ft_cd.c command/ft_env.c	command/ft_export.c \
 		  command/ft_unset.c
 
