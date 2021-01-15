@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 16:48:00 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:36:41 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct	s_cmd
 
 char			**cmd_split(char *s);
 
-t_list			*tokenlst_init(char *input);
+void			tokenlst_init(t_list **lst, char *input);
 
 void			sp2cmd(t_list *lst);
 

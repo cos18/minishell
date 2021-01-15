@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 01:20:30 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:01:45 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:55:31 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	cmd_end_free(void)
 {
-	free(g_bash->input);
+	if (g_bash->input)
+		free(g_bash->input);
 	g_bash->input = NULL;
 	free_cmd(&(g_bash->cmd));
 }
@@ -32,15 +33,15 @@ void	free_cmd(t_cmd *cmd)
 	{
 		i = -1;
 		while (cmd->arg[++i])
-		{
 			free(cmd->arg[i]);
-			cmd->arg[i] = NULL;
-		}
 		free(cmd->arg);
 		cmd->arg = NULL;
 	}
 	if (cmd->token)
+	{
 		free(cmd->token);
+		cmd->token = NULL;
+	}
 }
 
 int		free_split(char **sep, int word_locate)

@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:07:11 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:42:11 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,5 @@ t_envlst		*g_envlst_first_wrong;
 
 void			print_prompt(int ps);
 int				get_command(void);
-
-void			cmd_end_free(void);
-void			free_cmd(t_cmd *cmd);
-int				free_split(char **sep, int word_locate);
 
 #endif

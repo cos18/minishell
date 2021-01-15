@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:10:09 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:54:28 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static int	get_source(void)
 			ft_printf("exit\n");
 		return (SOURCE_EXIT);
 	}
-	if ((token_lst = tokenlst_init(g_bash->input)) == NULL)
-		return (GET_CMD_ERROR);
+	token_lst = NULL;
+	tokenlst_init(&token_lst, g_bash->input);
 	sp2cmd(token_lst);
 	free_lst(token_lst);
 	return (SOURCE_OK);
@@ -39,6 +39,9 @@ static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
 	g_bash->token = NULL;
+	g_bash->cmd.arg = NULL;
+	g_bash->cmd.name = NULL;
+	g_bash->cmd.token = NULL;
 	g_bash->execute_name = argv[0];
 	g_bash->envlst = envlst_init(envp);
 	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
@@ -60,7 +63,7 @@ int			main(int argc, char **argv, char **envp)
 		print_prompt(PS1);
 		if (get_source() == SOURCE_EXIT)
 			break ;
-		if (g_bash->input != NULL && ft_strlen(g_bash->input) != 0)
+		if (g_bash->cmd.name != NULL)
 			exec(g_bash->cmd);
 		cmd_end_free();
 	}

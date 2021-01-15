@@ -6,15 +6,15 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:12:02 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 17:30:27 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		env_valid_name(char *name, int is_export)
+int				env_valid_name(char *name, int is_export)
 {
-	int	check_num;
+	int			check_num;
 
 	if (!name)
 		return (FALSE);
@@ -52,7 +52,7 @@ t_envlst		*get_env_in_token(char **check)
 			return (g_envlst_first_wrong);
 		}
 		if (!ft_isalnum(*(*check + 1)) && *(*check + 1) != '_')
-			break;
+			break ;
 		(*check)++;
 	}
 	if ((name = ft_strndup(start, *check - start + 1)) == NULL)

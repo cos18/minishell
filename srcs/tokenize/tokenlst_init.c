@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:49:00 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:22:44 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/15 18:27:33 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void		set_token(char *token, char *start, char *end)
 			quote = '\0';
 		else if (*start == '$' && quote != '\'')
 			set_token_env(token, &locate, &start);
-		else if (*start != '\\' && *(start + 1) != '\"')
+		else if (*start != '\\' || *(start + 1) != '\"')
 			token[locate++] = *start;
 		start++;
 	}
@@ -81,14 +81,12 @@ static void		add_token(t_list **lst, char **start, char *end)
 	*start = NULL;
 }
 
-t_list			*tokenlst_init(char *input)
+void			tokenlst_init(t_list **lst, char *input)
 {
-	t_list		*result;
 	char		quote;
 	char		*start;
 	char		*is;
 
-	result = NULL;
 	quote = '\0';
 	start = NULL;
 	is = input;
@@ -97,7 +95,7 @@ t_list			*tokenlst_init(char *input)
 		if (start == NULL && !ft_isblank(*input))
 			start = input;
 		if (start && ft_isblank(*input) && quote == '\0')
-			add_token(&result, &start, input);
+			add_token(lst, &start, input);
 		if ((*input == '\'' || (*input == '\"'
 			&& (is == input || *(input - 1) != '\\'))) && (quote == '\0'))
 			quote = *input;
@@ -107,6 +105,5 @@ t_list			*tokenlst_init(char *input)
 		input++;
 	}
 	if (start)
-		add_token(&result, &start, input);
-	return (result);
+		add_token(lst, &start, input);
 }
