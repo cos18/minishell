@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:30:27 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/16 15:13:10 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ t_envlst		*get_env_in_token(char **check)
 			(*check)--;
 			return (g_envlst_first_wrong);
 		}
-		if (!ft_isalnum(*(*check + 1)) && *(*check + 1) != '_')
+		if ((start == *check && ft_isnumber(**check)) ||
+				(!ft_isalnum(*(*check + 1)) && *(*check + 1) != '_'))
 			break ;
 		(*check)++;
 	}
