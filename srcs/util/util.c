@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:28:42 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 17:18:57 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/16 17:30:23 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			check_double_quote(char *is, char *input)
 	while (is > (--input))
 	{
 		if (*input != '\\')
-			break;
+			break ;
 		check_backslash++;
 	}
 	if (check_backslash % 2)
