@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:28:42 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 01:02:36 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/16 17:30:23 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,22 @@ char		*strjoin_free_a(char *a, char *b)
 	result = ft_strjoin(a, b);
 	free(a);
 	return (result);
+}
+
+int			check_double_quote(char *is, char *input)
+{
+	int		check_backslash;
+
+	if (*input != '\"')
+		return (FALSE);
+	check_backslash = 0;
+	while (is > (--input))
+	{
+		if (*input != '\\')
+			break ;
+		check_backslash++;
+	}
+	if (check_backslash % 2)
+		return (FALSE);
+	return (TRUE);
 }

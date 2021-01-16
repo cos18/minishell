@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 20:14:50 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/14 23:59:44 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/16 17:29:15 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,30 +41,46 @@ void				reset_path(char ***path, t_envlst *envlst)
 	*path = path_init(envlst);
 }
 
-char				*cmd_get_path_join(char **path, char *name)
+static int			check_path_name(char *target, char *name)
 {
-	char			**target;
 	DIR				*dir;
 	struct dirent	*dent;
 
+	dir = opendir(target);
+	if (dir)
+	{
+		while ((dent = readdir(dir)))
+		{
+			if (ft_strequ(dent->d_name, name))
+			{
+				closedir(dir);
+				return (TRUE);
+			}
+		}
+		closedir(dir);
+	}
+	return (FALSE);
+}
+
+char				*cmd_get_path_join(char **path, char *name)
+{
+	char			*tmp;
+	char			**target;
+
+	tmp = name;
+	while (*tmp)
+	{
+		if (*tmp == '/')
+			return (ft_strdup(name));
+		tmp++;
+	}
 	if (path == NULL)
 		return (ft_strjoin("./", name));
 	target = path;
 	while (*target)
 	{
-		dir = opendir(*target);
-		if (dir)
-		{
-			while ((dent = readdir(dir)))
-			{
-				if (ft_strequ(dent->d_name, name))
-				{
-					closedir(dir);
-					return (ft_strjoin(*target, name));
-				}
-			}
-			closedir(dir);
-		}
+		if (check_path_name(*target, name))
+			return (ft_strjoin(*target, name));
 		target++;
 	}
 	return (NULL);
