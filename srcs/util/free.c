@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 01:20:30 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:55:31 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/16 17:22:35 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int		free_split(char **sep, int word_locate)
 {
 	int	locate;
 
+	if (sep == NULL)
+		return (1);
 	locate = -1;
 	while (++locate < word_locate - 1 && sep[locate])
 		free(sep[locate]);

@@ -6,13 +6,13 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:49:00 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 15:46:52 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/16 17:21:02 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		set_token_env(char *token, int *locate, char **start)
+static void		handle_env(char *token, int *locate, char **start)
 {
 	t_envlst	*env;
 	char		*val;
@@ -32,6 +32,15 @@ static void		set_token_env(char *token, int *locate, char **start)
 	}
 }
 
+static void		handle_backslash(char *token, int *locate, char **start,
+									char quote)
+{
+	if ((*(*start + 1) != '\n' || quote == '\"'))
+		token[(*locate)++] = *(++(*start));
+	else
+		++(*start);
+}
+
 static void		set_token(char *token, char *start, char *end)
 {
 	char		quote;
@@ -43,15 +52,17 @@ static void		set_token(char *token, char *start, char *end)
 	locate = 0;
 	while (start != end)
 	{
-		if ((*start == '\'' || (*start == '\"'
-			&& (is == start || *(start - 1) != '\\'))) && (quote == '\0'))
+		if ((*start == '\'' || check_double_quote(is, start))
+				&& (quote == '\0'))
 			quote = *start;
-		else if ((*start == '\'' || (*start == '\"'
-			&& (is == start || *(start - 1) != '\\'))) && (quote == *start))
+		else if ((*start == '\'' || check_double_quote(is, start))
+				&& (quote == *start))
 			quote = '\0';
 		else if (*start == '$' && quote != '\'')
-			set_token_env(token, &locate, &start);
-		else if (*start != '\\' || *(start + 1) != '\"')
+			handle_env(token, &locate, &start);
+		else if (*start == '\\' && quote != '\'')
+			handle_backslash(token, &locate, &start, quote);
+		else
 			token[locate++] = *start;
 		start++;
 	}
@@ -94,13 +105,14 @@ void			tokenlst_init(t_list **lst, char *input)
 	{
 		if (start == NULL && !ft_isblank(*input))
 			start = input;
-		if (start && ft_isblank(*input) && quote == '\0')
+		if (start && ft_isblank(*input) && quote == '\0'
+				&& (is == input || *(input - 1) != '\\'))
 			add_token(lst, &start, input);
-		if ((*input == '\'' || (*input == '\"'
-			&& (is == input || *(input - 1) != '\\'))) && (quote == '\0'))
+		if ((*input == '\'' || check_double_quote(is, input))
+				&& (quote == '\0'))
 			quote = *input;
-		else if ((*input == '\'' || (*input == '\"'
-			&& (is == input || *(input - 1) != '\\'))) && (quote == *input))
+		else if ((*input == '\'' || check_double_quote(is, input))
+				&& (quote == *input))
 			quote = '\0';
 		input++;
 	}
