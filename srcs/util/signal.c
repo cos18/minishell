@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 16:34:02 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/15 23:31:06 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/17 21:20:30 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ void	sighandler(int signo)
 	{
 		if (g_bash->forked)
 		{
-			g_bash->exit_status = 130;
+			free(g_bash->exit_status->val);
+			g_bash->exit_status->val = ft_strdup("130");
 			ft_printf("\n");
 		}
 		else
@@ -26,12 +27,20 @@ void	sighandler(int signo)
 			ft_printf("\b\b  \b\b");
 			ft_printf("\n");
 			print_prompt(PS1);
-			g_bash->exit_status = 1;
+			free(g_bash->exit_status->val);
+			g_bash->exit_status->val = ft_strdup("1");
 		}
 	}
 	else if (signo == SIGQUIT)
 	{
 		ft_printf("\b\b  \b\b");
-		g_bash->exit_status = 4;
+		free(g_bash->exit_status->val);
+		g_bash->exit_status->val = ft_strdup("4");
 	}
+}
+
+void	bind_signal(void)
+{
+	signal(SIGINT, sighandler);
+	signal(SIGQUIT, sighandler);
 }

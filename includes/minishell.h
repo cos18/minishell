@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/17 20:55:46 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/17 21:08:43 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct	s_bash
 	t_envlst	*envlst;
 	t_envlst	*exit_status;
 	char		**path;
-	int			exit_status;
 	int			forked;
 }				t_bash;
 

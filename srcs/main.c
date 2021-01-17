@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/17 20:57:41 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/17 21:18:21 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,6 @@ static int	get_source(void)
 	return (SOURCE_OK);
 }
 
-static void	bind_signal(void)
-{
-	signal(SIGINT, sighandler);
-	signal(SIGQUIT, sighandler);
-}
-
 static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
@@ -52,7 +46,10 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->envlst = envlst_init(envp);
 	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
 	g_bash->path = path_init(g_bash->envlst);
-	g_bash->exit_status = 0;
+	g_bash->exit_status = (t_envlst *)malloc_safe(sizeof(t_envlst));
+	g_bash->exit_status->name = NULL;
+	g_bash->exit_status->next = NULL;
+	g_bash->exit_status->val = NULL;
 	g_bash->forked = FALSE;
 	g_envlst_first_wrong = (t_envlst *)malloc_safe(sizeof(t_envlst));
 	g_envlst_first_wrong->name = NULL;
