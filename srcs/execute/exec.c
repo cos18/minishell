@@ -6,13 +6,13 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 23:23:53 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/17 20:56:51 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void		exec_outside(t_cmd cmd)
+static void	exec_outside(t_cmd cmd)
 {
 	char	*path_name;
 	char	**envlst_char;
@@ -29,12 +29,12 @@ void		exec_outside(t_cmd cmd)
 	exit(127);
 }
 
-void		exec_cmd(t_cmd cmd)
+static void	exec_fork_cmd(t_cmd cmd)
 {
 	if (cmd.name == NULL)
 		return ;
 	if (ft_strequ(cmd.name, "echo"))
-		ft_printf("ECHO\n");
+		ft_echo(cmd);
 	else if (ft_strequ(cmd.name, "cd"))
 		ft_cd(cmd);
 	else if (ft_strequ(cmd.name, "pwd"))
@@ -52,7 +52,7 @@ void		exec_cmd(t_cmd cmd)
 	exit(0);
 }
 
-void		exec(t_cmd cmd)
+static void	exec_fork(t_cmd cmd)
 {
 	int		wc;
 	int		pid;
@@ -63,7 +63,7 @@ void		exec(t_cmd cmd)
 	else if (pid == 0)
 	{
 		g_bash->forked = TRUE;
-		exec_cmd(cmd);
+		exec_fork_cmd(cmd);
 	}
 	else
 	{
@@ -71,4 +71,16 @@ void		exec(t_cmd cmd)
 		wc = wait(NULL);
 		g_bash->forked = FALSE;
 	}
+}
+
+void		exec(t_cmd cmd)
+{
+	if (ft_strequ(cmd.name, "cd"))
+		ft_cd(cmd);
+	else if (ft_strequ(cmd.name, "export"))
+		ft_export(cmd.arg, &(g_bash->envlst), &(g_bash->path));
+	else if (ft_strequ(cmd.name, "unset"))
+		ft_unset(cmd, &(g_bash->envlst), &(g_bash->path));
+	else
+		exec_fork(cmd);
 }

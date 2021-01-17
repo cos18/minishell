@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:50:24 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 16:59:46 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/17 20:55:56 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 void	cmd_end_free(void);
 void	free_cmd(t_cmd *cmd);
 int		free_split(char **sep, int word_locate);
+void	free_lst(t_list *lst);
 
 void	throw_error(char *message, int pnum, int is_end);
 void	throw_custom_desc_error(char *message, char *desc, int is_end);
@@ -27,6 +28,7 @@ int		ft_strequ(char *s1, char *s2);
 size_t	ft_sp_size(char **sp);
 int		check_equation(int *locate, char *equation);
 char	*strjoin_free_a(char *a, char *b);
+int		check_double_quote(char *is, char *input);
 
 void	sighandler(int signo);
 #endif

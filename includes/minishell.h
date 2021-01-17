@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 23:24:33 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/17 20:55:46 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,19 @@ typedef struct	s_bash
 	char		*execute_name;
 	char		*input;
 	char		**token;
+	char		*home;
 	t_cmd		cmd;
 	t_envlst	*envlst;
+	t_envlst	*exit_status;
 	char		**path;
 	int			exit_status;
 	int			forked;
 }				t_bash;
 
 t_bash			*g_bash;
+t_envlst		*g_envlst_first_wrong;
 
 void			print_prompt(int ps);
 int				get_command(void);
-
-void			cmd_end_free(void);
-void			free_cmd(t_cmd *cmd);
-int				free_split(char **sep, int word_locate);
 
 #endif
