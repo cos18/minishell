@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 15:09:41 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:08:01 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,13 @@ static void	exec_fork(t_cmd cmd)
 
 void		exec(t_cmd cmd)
 {
+	int		status;
+
+	if (ft_strequ(cmd.name, "exit"))
+	{
+		if ((status = ft_exit(cmd)) != EXIT_TOO_MANY_ARGS)
+			exit(status);
+	}
 	if (ft_strequ(cmd.name, "cd"))
 		ft_cd(cmd);
 	else if (ft_strequ(cmd.name, "export"))

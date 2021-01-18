@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:06:27 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:07:44 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # define GET_CMD_ERROR -1
 # define GET_CMD_EOF 0
 # define GET_CMD_READ 1
-# define GET_CMD_EXIT 2
 
 # define SOURCE_OK 0
 # define SOURCE_EXIT 1
@@ -40,5 +39,7 @@
 # define ENV_OLDPWD "OLDPWD"
 # define ENV_PATH "PATH"
 # define ENV_PATH_WITHPLUS "PATH+"
+
+# define EXIT_TOO_MANY_ARGS -1
 
 #endif
