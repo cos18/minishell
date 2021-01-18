@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:54:28 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/18 17:08:44 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ static int	get_source(void)
 	cmd_status = get_command();
 	if (cmd_status == GET_CMD_ERROR)
 		exit(EXIT_FAILURE);
-	if (cmd_status == GET_CMD_EXIT || cmd_status == GET_CMD_EOF)
+	if (cmd_status == GET_CMD_EOF)
 	{
 		if (g_bash->input)
 			free(g_bash->input);
-		if (cmd_status == GET_CMD_EOF)
-			ft_printf("exit\n");
+		ft_printf("exit\n");
 		return (SOURCE_EXIT);
 	}
 	token_lst = NULL;

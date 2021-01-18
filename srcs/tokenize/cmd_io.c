@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/11 18:20:24 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/18 14:19:08 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,5 @@ int			get_command(void)
 			break ;
 		print_prompt(PS2);
 	}
-	if (ft_strncmp(g_bash->input, "exit", 5) == 0)
-		ft_printf("exit\n");
-	return (ft_strncmp(g_bash->input, "exit", 5) == 0 ?
-			GET_CMD_EXIT : GET_CMD_READ);
+	return (GET_CMD_READ);
 }
