@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:22:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:25:38 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:35:44 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,15 @@ static int		add_redir(t_list **tokenlst, t_cmdlst **redir_start)
 	result->name = ft_strdup((char *)((*tokenlst)->content));
 	result->token = NULL;
 	*tokenlst = (*tokenlst)->next;
-	if (get_token_kind((char *)((*tokenlst)->content)) != TOKEN_DEFAULT)
+	if (*tokenlst == NULL ||
+			get_token_kind((char *)((*tokenlst)->content)) != TOKEN_DEFAULT)
 	{
 		if (result->name)
 			free(result->name);
 		free(result);
-		return (throw_token_error((char *)((*tokenlst)->content)));
+		if (*tokenlst)
+			return (throw_token_error((char *)((*tokenlst)->content)));
+		return (throw_token_error("newline"));
 	}
 	result->arg = (char **)malloc_safe(sizeof(char *) * 2);
 	(result->arg)[0] = strdup_with_home((char *)((*tokenlst)->content));
@@ -78,7 +81,8 @@ static int		handle_one_command(t_list *tokenlst, t_list *last)
 			status = add_cmd(tokenlst, &cmd_loc, &arglst);
 		else
 			status = add_redir(&tokenlst, &redir_start);
-		tokenlst = tokenlst->next;
+		if (status)
+			tokenlst = tokenlst->next;
 	}
 	status = status ? add_arglst_to_cmd(cmd_loc, arglst) : status;
 	if (status && redir_start)
