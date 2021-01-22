@@ -6,15 +6,19 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:48:47 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 18:26:43 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_CONST_H
 # define MINISHELL_CONST_H
 
+# define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define STDIN_TMP 100
+# define STDOUT_TMP 101
 
 # define TRUE 1
 # define FALSE 0

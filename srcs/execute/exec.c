@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 15:56:09 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 18:48:20 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,15 +89,29 @@ static void		exec(t_cmdlst *lst)
 
 void			exec_cmdlst(void)
 {
+	int			is_fd_change;
+	t_cmdlst	*cmd_now;
 	t_cmdlst	*now;
 
 	now = g_bash->cmdlst;
 	while (now)
 	{
-		exec(now);
+		is_fd_change = FALSE;
+		cmd_now = now;
 		while (now && get_token_kind(now->data->name) != TOKEN_SEMI)
+		{
+			if (handle_redir_out(now, &is_fd_change) == FALSE)
+				break ;
 			now = now->next;
+		}
+		if (now && get_token_kind(now->data->name) != TOKEN_SEMI)
+			break ;
+		exec(cmd_now);
 		if (now)
 			now = now->next;
+		if (is_fd_change)
+			dup2(STDOUT_TMP, STDOUT);
 	}
+	if (is_fd_change)
+		dup2(STDOUT_TMP, STDOUT);
 }
