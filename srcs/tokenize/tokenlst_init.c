@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:49:00 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 18:59:33 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/22 21:11:52 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,6 @@ static void		set_token(char *token, char *start, char *end)
 	token[locate] = '\0';
 }
 
-static void		handle_sp(char **start, char *end, t_list **lst)
-{
-	int		len;
-	t_list	*item;
-
-	if (start == NULL || lst == NULL)
-		return ;
-	if (*end == ' ')
-		return ;
-	len = ft_strlen(g_sp[is_cur_sp(end, g_sp)]);
-	item = (t_list *)malloc_safe(sizeof(t_list));
-	item->content = (char *)ft_strndup(end, len);
-	item->next = NULL;
-	ft_lstadd_back(lst, item);
-	*start = (end + len);
-}
-
 static void		add_token(t_list **lst, char **start, char *end)
 {
 	t_list		*tokenlst;
@@ -101,14 +84,10 @@ static void		add_token(t_list **lst, char **start, char *end)
 			env_len += check_env_len(&now);
 		now++;
 	}
-	if ((**start == ' ' && *end == ' '))
+	if ((**start == ' ' && *end == ' ') ||
+		(is_cur_sp(*start, g_sp) > 0 && is_cur_sp(end, g_sp) > 0))
 	{
-		*start += 1;
-		return ;
-	}
-	if (is_cur_sp(*start, g_sp) > 0 && is_cur_sp(end, g_sp) > 0)
-	{
-		handle_sp(start, end, lst);
+		handle_sp2(start, end, lst);
 		return ;
 	}
 	token = (char *)malloc_safe(sizeof(char) * (end - *start + env_len + 1));
@@ -116,10 +95,7 @@ static void		add_token(t_list **lst, char **start, char *end)
 	if ((tokenlst = ft_lstnew((void *)token)) == NULL)
 		throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
 	ft_lstadd_back(lst, tokenlst);
-	if (is_cur_sp(end, g_sp) > 1)
-		handle_sp(start, end, lst);
-	else
-		*start = NULL;
+	is_cur_sp(end, g_sp) > 1 ? handle_sp(start, end, lst) : (*start = NULL);
 }
 
 void			tokenlst_init(t_list **lst, char *input)
@@ -135,11 +111,10 @@ void			tokenlst_init(t_list **lst, char *input)
 	{
 		if (start == NULL && !ft_isblank(*input))
 			start = input;
-		if (start && is_cur_sp(input, g_sp) != -1  && quote == '\0'
+		if (start && is_cur_sp(input, g_sp) != -1 && quote == '\0'
 				&& (is == input || *(input - 1) != '\\'))
 			add_token(lst, &start, input);
-		if ((*input == '\'' || check_double_quote(is, input))
-				&& (quote == '\0'))
+		if ((*input == '\'' || check_double_quote(is, input)) && (quote == 0))
 			quote = *input;
 		else if ((*input == '\'' || check_double_quote(is, input))
 				&& (quote == *input))
