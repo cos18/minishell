@@ -6,16 +6,16 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/18 17:08:01 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 15:56:09 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	exec_outside(t_cmd cmd)
+static void		exec_outside(t_cmd cmd)
 {
-	char	*path_name;
-	char	**envlst_char;
+	char		*path_name;
+	char		**envlst_char;
 
 	path_name = cmd_get_path_join(g_bash->path, cmd.name);
 	envlst_char = envlst_to_char(g_bash->envlst);
@@ -29,7 +29,7 @@ static void	exec_outside(t_cmd cmd)
 	exit(127);
 }
 
-static void	exec_fork_cmd(t_cmd cmd)
+static void		exec_fork_cmd(t_cmd cmd)
 {
 	if (cmd.name == NULL)
 		return ;
@@ -52,10 +52,10 @@ static void	exec_fork_cmd(t_cmd cmd)
 	exit(0);
 }
 
-static void	exec_fork(t_cmd cmd)
+static void		exec_fork(t_cmd cmd)
 {
-	int		wc;
-	int		pid;
+	int			wc;
+	int			pid;
 
 	pid = fork();
 	if (pid < 0)
@@ -66,10 +66,12 @@ static void	exec_fork(t_cmd cmd)
 		wc = wait(NULL);
 }
 
-void		exec(t_cmd cmd)
+static void		exec(t_cmdlst *lst)
 {
-	int		status;
+	t_cmd		cmd;
+	int			status;
 
+	cmd = *(lst->data);
 	if (ft_strequ(cmd.name, "exit"))
 	{
 		if ((status = ft_exit(cmd)) != EXIT_TOO_MANY_ARGS)
@@ -83,4 +85,19 @@ void		exec(t_cmd cmd)
 		ft_unset(cmd, &(g_bash->envlst), &(g_bash->path));
 	else
 		exec_fork(cmd);
+}
+
+void			exec_cmdlst(void)
+{
+	t_cmdlst	*now;
+
+	now = g_bash->cmdlst;
+	while (now)
+	{
+		exec(now);
+		while (now && get_token_kind(now->data->name) != TOKEN_SEMI)
+			now = now->next;
+		if (now)
+			now = now->next;
+	}
 }

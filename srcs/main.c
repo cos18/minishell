@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/18 17:08:44 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:50:21 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,24 @@ static int	get_source(void)
 	}
 	token_lst = NULL;
 	tokenlst_init(&token_lst, g_bash->input);
-	sp2cmd(token_lst);
-	free_lst(token_lst);
-	return (SOURCE_OK);
+	if (token_lst == NULL)
+		return (SOURCE_EMPTY);
+	if (get_token_kind((char *)(token_lst->content)) == TOKEN_PIPE ||
+			get_token_kind((char *)(token_lst->content)) == TOKEN_SEMI)
+	{
+		throw_token_error((char *)(token_lst->content));
+		free_lst(token_lst);
+		return (SOURCE_TOKEN_ERR);
+	}
+	return (cmdlst_init(token_lst) ? SOURCE_OK : SOURCE_TOKEN_ERR);
 }
 
 static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
 	g_bash->token = NULL;
-	g_bash->cmd.arg = NULL;
-	g_bash->cmd.name = NULL;
-	g_bash->cmd.token = NULL;
 	g_bash->execute_name = argv[0];
+	g_bash->cmdlst = NULL;
 	g_bash->envlst = envlst_init(envp);
 	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
 	g_bash->path = path_init(g_bash->envlst);
@@ -53,6 +58,7 @@ static void	init_bash(char **argv, char **envp)
 
 int			main(int argc, char **argv, char **envp)
 {
+	int		status;
 	t_bash	bash;
 
 	g_bash = &bash;
@@ -60,10 +66,10 @@ int			main(int argc, char **argv, char **envp)
 	while (TRUE)
 	{
 		print_prompt(PS1);
-		if (get_source() == SOURCE_EXIT)
+		if ((status = get_source()) == SOURCE_EXIT)
 			break ;
-		if (g_bash->cmd.name != NULL)
-			exec(g_bash->cmd);
+		else if (status == SOURCE_OK)
+			exec_cmdlst();
 		cmd_end_free();
 	}
 	envlst_free(g_bash->envlst);
