@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:22:36 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:50:21 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static int	get_source(void)
 	}
 	token_lst = NULL;
 	tokenlst_init(&token_lst, g_bash->input);
+	if (token_lst == NULL)
+		return (SOURCE_EMPTY);
 	if (get_token_kind((char *)(token_lst->content)) == TOKEN_PIPE ||
 			get_token_kind((char *)(token_lst->content)) == TOKEN_SEMI)
 	{
@@ -36,9 +38,7 @@ static int	get_source(void)
 		free_lst(token_lst);
 		return (SOURCE_TOKEN_ERR);
 	}
-	if (cmdlst_init(token_lst) == FALSE)
-		return (SOURCE_TOKEN_ERR);
-	return (SOURCE_OK);
+	return (cmdlst_init(token_lst) ? SOURCE_OK : SOURCE_TOKEN_ERR);
 }
 
 static void	init_bash(char **argv, char **envp)
