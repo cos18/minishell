@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/21 17:37:39 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 00:33:09 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct	s_bash
 	char		*input;
 	char		**token;
 	char		*home;
-	t_cmd		cmd;
+	t_cmdlst	*cmdlst;
 	t_envlst	*envlst;
 	t_envlst	*exit_status;
 	char		**path;

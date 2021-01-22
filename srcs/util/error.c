@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:55:22 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/13 17:15:29 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:11:34 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@ void		throw_custom_desc_error(char *message, char *desc, int is_end)
 	ft_putendl_fd(desc, STDERR);
 	if (is_end)
 		exit(EXIT_FAILURE);
+}
+
+int			throw_token_error(char *token)
+{
+	char	*message;
+
+	message = ft_strjoin("minishell: syntax error near unexpected token `",
+								token);
+	message = strjoin_free_a(message, "\'");
+	ft_putendl_fd(message, STDERR);
+	free(message);
+	errno = 258;
+	return (FALSE);
 }
 
 void		*malloc_safe(size_t size)
