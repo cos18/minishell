@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/18 17:07:44 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/21 18:21:01 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,16 @@
 
 # define SOURCE_OK 0
 # define SOURCE_EXIT 1
+# define SOURCE_TOKEN_ERR 2
 
 # define MAX_SPLIT 10000
+
+# define TOKEN_DEFAULT 0
+# define TOKEN_PIPE 1
+# define TOKEN_REDIR_OUT 2
+# define TOKEN_REDIR_OUT_DUP 3
+# define TOKEN_REDIR_IN 4
+# define TOKEN_SEMI 5
 
 # define MAX_PATH_LEN 4096
 

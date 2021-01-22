@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/18 17:08:44 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 14:38:07 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ static int	get_source(void)
 	}
 	token_lst = NULL;
 	tokenlst_init(&token_lst, g_bash->input);
-	sp2cmd(token_lst);
-	free_lst(token_lst);
+	if (cmdlst_init(token_lst) == FALSE)
+		return (SOURCE_TOKEN_ERR);
+	// sp2cmd(token_lst);
+	// free_lst(token_lst);
 	return (SOURCE_OK);
 }
 
@@ -38,10 +40,8 @@ static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
 	g_bash->token = NULL;
-	g_bash->cmd.arg = NULL;
-	g_bash->cmd.name = NULL;
-	g_bash->cmd.token = NULL;
 	g_bash->execute_name = argv[0];
+	g_bash->cmdlst = NULL;
 	g_bash->envlst = envlst_init(envp);
 	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
 	g_bash->path = path_init(g_bash->envlst);
@@ -51,8 +51,25 @@ static void	init_bash(char **argv, char **envp)
 	g_envlst_first_wrong->next = NULL;
 }
 
+void		print_cmdlst()
+{
+	t_cmdlst	*lst;
+	t_cmd		*cmd;
+
+	lst = g_bash->cmdlst;
+	while (lst)
+	{
+		cmd = lst->data;
+		ft_printf("name : %s\n", cmd->name);
+		if (cmd->arg)
+			ft_printf("args[0] : %s\n", cmd->arg[0]);
+		lst = lst->next;
+	}
+}
+
 int			main(int argc, char **argv, char **envp)
 {
+	int		status;
 	t_bash	bash;
 
 	g_bash = &bash;
@@ -60,10 +77,10 @@ int			main(int argc, char **argv, char **envp)
 	while (TRUE)
 	{
 		print_prompt(PS1);
-		if (get_source() == SOURCE_EXIT)
+		if ((status = get_source()) == SOURCE_EXIT)
 			break ;
-		if (g_bash->cmd.name != NULL)
-			exec(g_bash->cmd);
+		else if (status == SOURCE_OK)
+			print_cmdlst();
 		cmd_end_free();
 	}
 	envlst_free(g_bash->envlst);

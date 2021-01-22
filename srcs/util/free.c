@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/05 01:20:30 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 17:22:35 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 14:18:21 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	cmd_end_free(void)
 	if (g_bash->input)
 		free(g_bash->input);
 	g_bash->input = NULL;
-	free_cmd(&(g_bash->cmd));
+	if (g_bash->cmdlst)
+		free_cmdlst(g_bash->cmdlst);
+	g_bash->cmdlst = NULL;
 }
 
 void	free_cmd(t_cmd *cmd)
@@ -65,5 +67,16 @@ void	free_lst(t_list *lst)
 		free_lst(lst->next);
 	if (lst->content)
 		free(lst->content);
+	free(lst);
+}
+
+void	free_cmdlst(t_cmdlst *lst)
+{
+	if (lst == NULL)
+		return ;
+	if (lst->next)
+		free_cmdlst(lst->next);
+	if (lst->data)
+		free_cmd(lst->data);
 	free(lst);
 }
