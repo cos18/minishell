@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/18 17:08:44 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 18:18:54 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,17 @@ static int	get_source(void)
 	return (SOURCE_OK);
 }
 
+static void	init_sp(void)
+{
+	g_sp[0] = ft_strdup(" ");
+	g_sp[1] = ft_strdup(">>");
+	g_sp[2] = ft_strdup("<");
+	g_sp[3] = ft_strdup(">");
+	g_sp[4] = ft_strdup("|");
+	g_sp[5] = ft_strdup(";");
+	g_sp[6] = NULL;
+}
+
 static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
@@ -49,6 +60,7 @@ static void	init_bash(char **argv, char **envp)
 	g_envlst_first_wrong->name = NULL;
 	g_envlst_first_wrong->val = NULL;
 	g_envlst_first_wrong->next = NULL;
+	init_sp();
 }
 
 int			main(int argc, char **argv, char **envp)

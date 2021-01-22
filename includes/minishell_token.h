@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 17:36:41 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 15:56:08 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,6 @@ void			tokenlst_init(t_list **lst, char *input);
 
 void			sp2cmd(t_list *lst);
 
+int				is_split(char *in, char *sp[]);
+int				is_cur_sp(char *in, char *sp[]);
 #endif
