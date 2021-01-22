@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:22:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:13:40 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:25:38 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ static int		handle_next_command(t_list *tokenlst)
 {
 	t_cmd		*result;
 
-	if (tokenlst->next && (get_token_kind((char *)(tokenlst->next)) == TOKEN_PIPE
-							|| get_token_kind((char *)(tokenlst->next)) == TOKEN_SEMI))
+	if (tokenlst->next && (get_token_kind((char *)(tokenlst->next))
+	== TOKEN_PIPE || get_token_kind((char *)(tokenlst->next)) == TOKEN_SEMI))
 		return (throw_token_error((char *)(tokenlst->next->content)));
 	result = (t_cmd *)malloc_safe(sizeof(t_cmd));
 	result->arg = NULL;
