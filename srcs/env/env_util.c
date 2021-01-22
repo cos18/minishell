@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 15:52:31 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 23:48:28 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_envlst		*get_env_in_token(char **check)
 	t_envlst	*result;
 	char		*name;
 
+	start = ++(*check);
 	if (**check == '?')
 		return (g_bash->exit_status);
-	start = ++(*check);
 	if (!ft_isalnum(**check) && **check != '_')
 	{
 		(*check)--;
@@ -64,10 +64,32 @@ t_envlst		*get_env_in_token(char **check)
 	return (result);
 }
 
+int				ft_int_len(long n)
+{
+	int		i;
+
+	i = 0;
+	if (n < 0)
+		return (1 + ft_int_len(-n));
+	else if (n == 0)
+		return (1);
+	else
+	{
+		while (n != 0)
+		{
+			n /= 10;
+			i++;
+		}
+	}
+	return (i);
+}
+
 int				check_env_len(char **check)
 {
 	t_envlst	*find;
 
+	if (ft_strequ(*check, "$?"))
+		return (ft_int_len(errno));
 	if ((find = get_env_in_token(check)) == g_envlst_first_wrong
 			|| find == NULL)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 15:56:09 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 00:08:04 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void		exec_fork_cmd(t_cmd cmd)
 		exit(0);
 	else
 		exec_outside(cmd);
+	errno = 0;
 	exit(0);
 }
 
@@ -56,6 +57,7 @@ static void		exec_fork(t_cmd cmd)
 {
 	int			wc;
 	int			pid;
+	int			exits;
 
 	pid = fork();
 	if (pid < 0)
@@ -63,7 +65,10 @@ static void		exec_fork(t_cmd cmd)
 	else if (pid == 0)
 		exec_fork_cmd(cmd);
 	else
-		wc = wait(NULL);
+	{
+		wc = waitpid(pid, &exits, 0);
+		errno = WEXITSTATUS(exits);
+	}
 }
 
 static void		exec(t_cmdlst *lst)

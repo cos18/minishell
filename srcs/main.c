@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:50:21 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 00:22:16 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,10 @@ static void	init_bash(char **argv, char **envp)
 	g_envlst_first_wrong->name = NULL;
 	g_envlst_first_wrong->val = NULL;
 	g_envlst_first_wrong->next = NULL;
+	g_bash->exit_status = (t_envlst *)malloc_safe(sizeof(t_envlst));
+	g_bash->exit_status->name = "?";
+	g_bash->exit_status->next = NULL;
+	g_bash->exit_status->val = "";
 }
 
 int			main(int argc, char **argv, char **envp)
