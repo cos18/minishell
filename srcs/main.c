@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 14:51:30 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:22:36 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ static int	get_source(void)
 	}
 	token_lst = NULL;
 	tokenlst_init(&token_lst, g_bash->input);
+	if (get_token_kind((char *)(token_lst->content)) == TOKEN_PIPE ||
+			get_token_kind((char *)(token_lst->content)) == TOKEN_SEMI)
+	{
+		throw_token_error((char *)(token_lst->content));
+		free_lst(token_lst);
+		return (SOURCE_TOKEN_ERR);
+	}
 	if (cmdlst_init(token_lst) == FALSE)
 		return (SOURCE_TOKEN_ERR);
 	return (SOURCE_OK);
@@ -47,22 +54,6 @@ static void	init_bash(char **argv, char **envp)
 	g_envlst_first_wrong->name = NULL;
 	g_envlst_first_wrong->val = NULL;
 	g_envlst_first_wrong->next = NULL;
-}
-
-void		print_cmdlst(void)
-{
-	t_cmdlst	*lst;
-	t_cmd		*cmd;
-
-	lst = g_bash->cmdlst;
-	while (lst)
-	{
-		cmd = lst->data;
-		ft_printf("name : %s\n", cmd->name);
-		if (cmd->arg)
-			ft_printf("args[0] : %s\n", cmd->arg[0]);
-		lst = lst->next;
-	}
 }
 
 int			main(int argc, char **argv, char **envp)

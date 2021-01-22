@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:50:24 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 14:35:30 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:11:56 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	free_cmdlst(t_cmdlst *lst);
 
 void	throw_error(char *message, int pnum, int is_end);
 void	throw_custom_desc_error(char *message, char *desc, int is_end);
+int		throw_token_error(char *token);
 void	*malloc_safe(size_t size);
 
 int		ft_strequ(char *s1, char *s2);

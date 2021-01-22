@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:22:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 14:43:48 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 16:13:40 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static int		add_cmd(t_list *tokenlst, t_cmdlst **cmd_loc,
 static int		add_redir(t_list **tokenlst, t_cmdlst **redir_start)
 {
 	t_cmd		*result;
-	char		*message;
 
 	result = (t_cmd *)malloc_safe(sizeof(t_cmd));
 	result->name = ft_strdup((char *)((*tokenlst)->content));
@@ -50,15 +49,10 @@ static int		add_redir(t_list **tokenlst, t_cmdlst **redir_start)
 	*tokenlst = (*tokenlst)->next;
 	if (get_token_kind((char *)((*tokenlst)->content)) != TOKEN_DEFAULT)
 	{
-		message = ft_strjoin("minishell: syntax error near unexpected token `",
-								(char *)((*tokenlst)->content));
-		message = strjoin_free_a(message, "\'");
-		ft_putendl_fd(message, STDOUT);
-		free(message);
 		if (result->name)
 			free(result->name);
 		free(result);
-		return (FALSE);
+		return (throw_token_error((char *)((*tokenlst)->content)));
 	}
 	result->arg = (char **)malloc_safe(sizeof(char *) * 2);
 	(result->arg)[0] = strdup_with_home((char *)((*tokenlst)->content));
@@ -96,10 +90,13 @@ static int		handle_one_command(t_list *tokenlst, t_list *last)
 	return (status);
 }
 
-static void		handle_next_command(t_list *tokenlst)
+static int		handle_next_command(t_list *tokenlst)
 {
 	t_cmd		*result;
 
+	if (tokenlst->next && (get_token_kind((char *)(tokenlst->next)) == TOKEN_PIPE
+							|| get_token_kind((char *)(tokenlst->next)) == TOKEN_SEMI))
+		return (throw_token_error((char *)(tokenlst->next->content)));
 	result = (t_cmd *)malloc_safe(sizeof(t_cmd));
 	result->arg = NULL;
 	result->name = ft_strdup((char *)(tokenlst->content));
@@ -107,6 +104,7 @@ static void		handle_next_command(t_list *tokenlst)
 	cmdlst_add_last(&(g_bash->cmdlst), result);
 	tokenlst->next = NULL;
 	free_lst(tokenlst);
+	return (TRUE);
 }
 
 int				cmdlst_init(t_list *tokenlst)
@@ -128,7 +126,8 @@ int				cmdlst_init(t_list *tokenlst)
 		if (tmp)
 		{
 			last = tmp->next;
-			handle_next_command(tmp);
+			if (handle_next_command(tmp) == FALSE)
+				return (free_left_vars(tmp));
 			tmp = last;
 		}
 		tokenlst = tmp;
