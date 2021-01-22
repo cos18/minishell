@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 17:34:08 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/22 21:11:42 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/22 22:26:32 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,14 @@ void		handle_sp2(char **start, char *end, t_list **lst)
 		*start += 1;
 	else if (is_cur_sp(*start, g_sp) > 0 && is_cur_sp(end, g_sp) > 0)
 		handle_sp(start, end, lst);
+}
+
+void		cnt_env_len(char **now, char *end, int *env_len)
+{
+	while (*now != end)
+	{
+		if (**now == '$')
+			*env_len += check_env_len(now);
+		(*now)++;
+	}
 }

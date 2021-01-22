@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 21:13:05 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/22 22:26:54 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ int				is_split(char *in, char *sp[]);
 int				is_cur_sp(char *in, char *sp[]);
 void			handle_sp(char **start, char *end, t_list **list);
 void			handle_sp2(char **start, char *end, t_list **list);
+void			cnt_env_len(char **now, char *end, int *env_len);
 #endif
