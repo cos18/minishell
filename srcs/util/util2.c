@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 14:31:24 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 14:34:45 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 14:43:37 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char		*strdup_with_home(char *str)
 {
 	char	*result;
+
 	if (str == NULL)
 		return (NULL);
 	result = ft_strdup(ft_strequ(str, "~") ? g_bash->home : str);

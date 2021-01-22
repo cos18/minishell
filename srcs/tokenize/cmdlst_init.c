@@ -6,18 +6,11 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:22:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 14:36:03 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 14:43:48 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-# define TOKEN_DEFAULT 0
-# define TOKEN_PIPE 1
-# define TOKEN_REDIR_OUT 2
-# define TOKEN_REDIR_OUT_DUP 3
-# define TOKEN_REDIR_IN 4
-# define TOKEN_SEMI 5
 
 static int		add_cmd(t_list *tokenlst, t_cmdlst **cmd_loc,
 						t_list **arglist)
