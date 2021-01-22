@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 14:53:18 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 14:55:05 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void		exec(t_cmdlst *lst)
 		exec_fork(cmd);
 }
 
-void			exec_cmdlst()
+void			exec_cmdlst(void)
 {
 	t_cmdlst	*now;
 
