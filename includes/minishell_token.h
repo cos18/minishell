@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/21 18:14:38 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 15:22:18 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct		s_cmd
 	char			*name;
 	char			**arg;
 	char			**token;
+	int				in;
+	int				out;
 }					t_cmd;
 
 char				**cmd_split(char *s);

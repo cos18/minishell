@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:25:07 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 14:35:39 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 17:29:28 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,12 @@
 
 void	exec_cmdlst(void);
 
-void	change_to_std(int is_stdout_change, int is_stdin_change);
-int		handle_redir_in(t_cmdlst *now, int *is_stdin_change);
-int		handle_redir(t_cmdlst *now, int *is_stdout_change,
-						int *is_stdin_change);
+void	init_pipe_cmd(t_cmdlst *lst, t_cmdlst *pipe_lst);
+
+void	close_inout_fd(t_cmdlst *now_cmd);
+int		handle_redir_in(t_cmdlst *now_cmd, t_cmdlst *now);
+int		handle_redir(t_cmdlst *now_cmd, t_cmdlst *now);
+int		open_inout(t_cmd cmd);
+void	close_inout(t_cmd cmd);
 
 #endif

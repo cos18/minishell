@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:22:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:43:10 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 15:23:52 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ static int		add_cmd(t_list *tokenlst, t_cmdlst **cmd_loc,
 	cmd->name = strdup_with_home((char *)(tokenlst->content));
 	cmd->arg = NULL;
 	cmd->token = NULL;
+	cmd->in = STDIN;
+	cmd->out = STDOUT;
 	*cmd_loc = cmdlst_add_last(&(g_bash->cmdlst), cmd);
 	if (cmd->name == NULL || *cmd_loc == NULL)
 	{
