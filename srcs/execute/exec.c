@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 18:48:20 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 14:29:44 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,20 @@ static void		exec(t_cmdlst *lst)
 
 void			exec_cmdlst(void)
 {
-	int			is_fd_change;
+	int			is_stdout_change;
+	int			is_stdin_change;
 	t_cmdlst	*cmd_now;
 	t_cmdlst	*now;
 
 	now = g_bash->cmdlst;
 	while (now)
 	{
-		is_fd_change = FALSE;
+		is_stdout_change = FALSE;
+		is_stdin_change = FALSE;
 		cmd_now = now;
 		while (now && get_token_kind(now->data->name) != TOKEN_SEMI)
 		{
-			if (handle_redir_out(now, &is_fd_change) == FALSE)
+			if (handle_redir(now, &is_stdout_change, &is_stdin_change) == FALSE)
 				break ;
 			now = now->next;
 		}
@@ -109,9 +111,7 @@ void			exec_cmdlst(void)
 		exec(cmd_now);
 		if (now)
 			now = now->next;
-		if (is_fd_change)
-			dup2(STDOUT_TMP, STDOUT);
+		change_to_std(is_stdout_change, is_stdin_change);
 	}
-	if (is_fd_change)
-		dup2(STDOUT_TMP, STDOUT);
+	change_to_std(is_stdout_change, is_stdin_change);
 }
