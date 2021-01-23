@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 17:50:36 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:10:45 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,10 @@ void			exec_cmdlst(void)
 		}
 		if (cmd_now->data->in == -1 || cmd_now->data->out == -1)
 			break ;
-		exec(cmd_now, cmd_pipe);
+		if (get_token_kind(cmd_now->data->name) == TOKEN_DEFAULT)
+			exec(cmd_now, cmd_pipe);
+		else
+			close_inout(*(cmd_now->data));
 		if (now)
 			now = now->next;
 	}
