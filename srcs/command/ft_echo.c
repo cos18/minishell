@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 18:20:20 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/14 19:34:53 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 14:39:03 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@ void	ft_echo(t_cmd cmd)
 
 	if (cmd.arg == NULL || cmd.arg[0] == NULL)
 	{
-		ft_putendl_fd("", 1);
+		ft_putendl_fd("", STDOUT);
 		return ;
 	}
-	nl = ft_strequ(cmd.arg[0], "-n");
+	nl = 0;
+	while (ft_strequ(cmd.arg[nl], "-n"))
+		nl++;
 	i = nl - 1;
 	while (cmd.arg[++i])
 	{

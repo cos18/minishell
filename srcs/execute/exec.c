@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 17:20:00 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 18:36:10 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void		exec_outside(t_cmd cmd)
 
 static void		exec_fork_cmd(t_cmd cmd)
 {
+	int			status;
+
 	if (cmd.name == NULL)
 		return ;
 	if (ft_strequ(cmd.name, "echo"))
@@ -46,19 +48,24 @@ static void		exec_fork_cmd(t_cmd cmd)
 	else if (ft_strequ(cmd.name, "env"))
 		ft_env(g_bash->envlst);
 	else if (ft_strequ(cmd.name, "exit"))
-		exit(0);
+	{
+		if ((status = ft_exit(cmd)) != EXIT_TOO_MANY_ARGS)
+			exit(status);
+	}
 	else
 		exec_outside(cmd);
 	errno = 0;
 	exit(0);
 }
 
-static void		exec_fork(t_cmd cmd)
+static void		exec_fork(t_cmdlst *lst)
 {
+	t_cmd		cmd;
 	int			wc;
 	int			pid;
 	int			exits;
 
+	cmd = *(lst->data);
 	pid = fork();
 	if (pid < 0)
 		throw_error(cmd.name, ERRNO_DEFAULT, TRUE);
@@ -76,18 +83,20 @@ static void		exec_fork(t_cmd cmd)
 	}
 }
 
-static void		exec(t_cmdlst *lst)
+static void		exec(t_cmdlst *lst, t_cmdlst *pipe_lst)
 {
 	t_cmd		cmd;
 	int			status;
 
 	cmd = *(lst->data);
+	if (open_inout(cmd) == FALSE)
+		return ;
 	if (ft_strequ(cmd.name, "exit"))
 	{
 		if ((status = ft_exit(cmd)) != EXIT_TOO_MANY_ARGS)
 			exit(status);
 	}
-	if (ft_strequ(cmd.name, "cd"))
+	else if (ft_strequ(cmd.name, "cd"))
 		ft_cd(cmd);
 	else if (ft_strequ(cmd.name, "export"))
 		ft_export(cmd.arg, &(g_bash->envlst), &(g_bash->path));
@@ -96,20 +105,37 @@ static void		exec(t_cmdlst *lst)
 	else if (ft_strequ(cmd.name, "exit"))
 		errno = 1;
 	else
-		exec_fork(cmd);
+		exec_fork(lst);
+	close_inout(cmd);
+	if (pipe_lst != NULL)
+		ft_printf("%s", pipe_lst->data->name);
 }
 
 void			exec_cmdlst(void)
 {
+	t_cmdlst	*cmd_now;
+	t_cmdlst	*cmd_pipe;
 	t_cmdlst	*now;
 
 	now = g_bash->cmdlst;
 	while (now)
 	{
-		exec(now);
+		cmd_pipe = NULL;
+		cmd_now = now;
 		while (now && get_token_kind(now->data->name) != TOKEN_SEMI)
+		{
+			if (get_token_kind(now->data->name) == TOKEN_PIPE)
+				cmd_pipe = now;
+			if (cmd_pipe == NULL && handle_redir(cmd_now, now) == FALSE)
+				break ;
 			now = now->next;
-		if (now)
-			now = now->next;
+		}
+		if (cmd_now->data->in == -1 || cmd_now->data->out == -1)
+			break ;
+		if (get_token_kind(cmd_now->data->name) == TOKEN_DEFAULT)
+			exec(cmd_now, cmd_pipe);
+		else
+			close_inout(*(cmd_now->data));
+		now = now ? now->next : now;
 	}
 }

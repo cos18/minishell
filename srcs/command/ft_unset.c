@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:11:41 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/14 20:50:27 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 14:33:07 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void		ft_unset(t_cmd cmd, t_envlst **lst, char ***path)
 	char	**target;
 
 	target = cmd.arg;
+	if (target == NULL)
+		return ;
 	while (*target)
 	{
 		if (env_valid_name(*target, FALSE) == FALSE)

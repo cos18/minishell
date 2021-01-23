@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell_execute.h                                :+:      :+:    :+:   */
+/*   token_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 18:25:07 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 17:29:28 by sunpark          ###   ########.fr       */
+/*   Created: 2021/01/23 18:05:22 by sunpark           #+#    #+#             */
+/*   Updated: 2021/01/23 18:31:17 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_EXECUTE_H
-# define MINISHELL_EXECUTE_H
+#include "minishell.h"
 
-# include "minishell_token.h"
+t_cmd		*cmd_init(char *name)
+{
+	t_cmd	*cmd;
 
-void	exec_cmdlst(void);
-
-void	init_pipe_cmd(t_cmdlst *lst, t_cmdlst *pipe_lst);
-
-void	close_inout_fd(t_cmdlst *now_cmd);
-int		handle_redir_in(t_cmdlst *now_cmd, t_cmdlst *now);
-int		handle_redir(t_cmdlst *now_cmd, t_cmdlst *now);
-int		open_inout(t_cmd cmd);
-void	close_inout(t_cmd cmd);
-
-#endif
+	cmd = (t_cmd *)malloc_safe(sizeof(t_cmd));
+	cmd->name = strdup_with_home(name);
+	cmd->arg = NULL;
+	cmd->token = NULL;
+	cmd->in = STDIN;
+	cmd->out = STDOUT;
+	return (cmd);
+}

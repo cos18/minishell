@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:22:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:43:10 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 18:30:55 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ static int		add_cmd(t_list *tokenlst, t_cmdlst **cmd_loc,
 		ft_lstadd_back(arglist, result);
 		return (TRUE);
 	}
-	cmd = (t_cmd *)malloc_safe(sizeof(t_cmd));
-	cmd->name = strdup_with_home((char *)(tokenlst->content));
-	cmd->arg = NULL;
-	cmd->token = NULL;
+	cmd = cmd_init((char *)(tokenlst->content));
 	*cmd_loc = cmdlst_add_last(&(g_bash->cmdlst), cmd);
 	if (cmd->name == NULL || *cmd_loc == NULL)
 	{
@@ -45,9 +42,7 @@ static int		add_redir(t_list **tokenlst, t_cmdlst **redir_start)
 	t_cmd		*result;
 
 	redir = *tokenlst;
-	result = (t_cmd *)malloc_safe(sizeof(t_cmd));
-	result->name = ft_strdup((char *)((*tokenlst)->content));
-	result->token = NULL;
+	result = cmd_init((char *)((*tokenlst)->content));
 	*tokenlst = (*tokenlst)->next;
 	if (*tokenlst == NULL ||
 			get_token_kind((char *)((*tokenlst)->content)) != TOKEN_DEFAULT)
@@ -103,10 +98,7 @@ static int		handle_next_command(t_list *tokenlst)
 	if (tokenlst->next && (get_token_kind((char *)(tokenlst->next))
 	== TOKEN_PIPE || get_token_kind((char *)(tokenlst->next)) == TOKEN_SEMI))
 		return (throw_token_error((char *)(tokenlst->next->content)));
-	result = (t_cmd *)malloc_safe(sizeof(t_cmd));
-	result->arg = NULL;
-	result->name = ft_strdup((char *)(tokenlst->content));
-	result->token = NULL;
+	result = cmd_init((char *)(tokenlst->content));
 	cmdlst_add_last(&(g_bash->cmdlst), result);
 	tokenlst->next = NULL;
 	free_lst(tokenlst);
