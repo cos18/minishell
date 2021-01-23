@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 15:36:14 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 17:20:00 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static void		exec(t_cmdlst *lst)
 		ft_export(cmd.arg, &(g_bash->envlst), &(g_bash->path));
 	else if (ft_strequ(cmd.name, "unset"))
 		ft_unset(cmd, &(g_bash->envlst), &(g_bash->path));
+	else if (ft_strequ(cmd.name, "exit"))
+		errno = 1;
 	else
 		exec_fork(cmd);
 }
