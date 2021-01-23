@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:43:14 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/23 17:15:34 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 03:37:22 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,30 +61,29 @@ static int	handle_line(char **line, char **note, char *nl_here)
 	return (0);
 }
 
-int			gnl(int fd, char **line)
+int			gnl(char **line)
 {
-	static char	*note[5000];
 	char		buff[2];
 	int			byte;
 	char		*tmp;
 	char		*nl_here;
 
-	if (fd < 0 || line == NULL)
+	if (line == NULL)
 		return (-1);
 	byte = 0;
-	while (((nl_here = ft_nextchar(note[fd], '\n')) == 0
-			&& (byte = read(fd, buff, 1)) > 0)
-			|| (byte == 0 && note[fd] != 0 && note[fd][0] != '\0'))
+	while (((nl_here = ft_nextchar(g_bash->note, '\n')) == 0
+			&& (byte = read(0, buff, 1)) > 0)
+			|| (byte == 0 && g_bash->note != 0 && g_bash->note[0] != '\0'))
 	{
-		if (byte == 0 && note[fd][0] == '\0')
+		if (byte == 0 && g_bash->note[0] == '\0')
 			return (-1);
 		if (byte == 0)
-			write(fd, "  \b\b", 4);
+			write(1, "  \b\b", 4);
 		else
 		{
 			buff[byte] = 0;
-			handle_eof(&note[fd], buff, byte, &tmp);
+			handle_eof(&g_bash->note, buff, byte, &tmp);
 		}
 	}
-	return (handle_line(line, &note[fd], nl_here));
+	return (handle_line(line, &g_bash->note, nl_here));
 }

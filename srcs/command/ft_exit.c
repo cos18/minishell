@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:26:01 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/18 17:11:49 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 04:02:33 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int					ft_exit(t_cmd cmd)
 
 	ft_putendl_fd("exit", STDOUT);
 	if (cmd.arg == NULL)
-		return (0);
+		return (1);
 	test = *(cmd.arg);
 	while (*test)
 	{
