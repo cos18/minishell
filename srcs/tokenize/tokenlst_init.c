@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:49:00 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 22:27:41 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 15:34:31 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		handle_env(char *token, int *locate, char **start)
 {
 	t_envlst	*env;
 	char		*val;
+	char		*tmp;
 
 	if ((env = get_env_in_token(start)) == g_envlst_first_wrong)
 	{
@@ -24,12 +25,20 @@ static void		handle_env(char *token, int *locate, char **start)
 	}
 	if (env == NULL || env->val == NULL)
 		return ;
-	val = env->val;
+	if (ft_strequ(*start, "?"))
+	{
+		tmp = ft_itoa(errno);
+		val = tmp;
+	}
+	else
+		val = env->val;
 	while (*val)
 	{
 		token[(*locate)++] = *val;
 		val++;
 	}
+	if (ft_strequ(env->name, "?"))
+		free(tmp);
 }
 
 static void		handle_backslash(char *token, int *locate, char **start,

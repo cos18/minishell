@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 00:33:03 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 17:20:00 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void		exec_fork_cmd(t_cmd cmd)
 		exit(0);
 	else
 		exec_outside(cmd);
+	errno = 0;
 	exit(0);
 }
 
@@ -56,6 +57,7 @@ static void		exec_fork(t_cmd cmd)
 {
 	int			wc;
 	int			pid;
+	int			exits;
 
 	pid = fork();
 	if (pid < 0)
@@ -68,7 +70,8 @@ static void		exec_fork(t_cmd cmd)
 	else
 	{
 		g_bash->forked = TRUE;
-		wc = wait(NULL);
+		wc = waitpid(pid, &exits, 0);
+		errno = WEXITSTATUS(exits);
 		g_bash->forked = FALSE;
 	}
 }
@@ -90,6 +93,8 @@ static void		exec(t_cmdlst *lst)
 		ft_export(cmd.arg, &(g_bash->envlst), &(g_bash->path));
 	else if (ft_strequ(cmd.name, "unset"))
 		ft_unset(cmd, &(g_bash->envlst), &(g_bash->path));
+	else if (ft_strequ(cmd.name, "exit"))
+		errno = 1;
 	else
 		exec_fork(cmd);
 }
