@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:50:24 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/17 21:14:54 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 16:40:26 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,5 @@ int		check_double_quote(char *is, char *input);
 
 void	sighandler(int signo);
 void	bind_signal(void);
+int		gnl(int fd, char **line);
 #endif
