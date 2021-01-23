@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:28:58 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 00:35:14 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 14:34:35 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ void		ft_export(char **target, t_envlst **lst, char ***path)
 	char	*name;
 	int		locate;
 
-	if (*target == NULL)
+	if (target == NULL || *target == NULL)
 		export_print_env(*lst);
-	while (*target)
+	while (target && *target)
 	{
 		if (check_equation(&locate, *target) == FALSE)
 		{
