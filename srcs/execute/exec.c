@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 17:48:41 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 17:50:36 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static void		exec_fork_cmd(t_cmd cmd)
 	}
 	else
 		exec_outside(cmd);
+	errno = 0;
 	exit(0);
 }
 
@@ -62,15 +63,24 @@ static void		exec_fork(t_cmdlst *lst)
 	t_cmd		cmd;
 	int			wc;
 	int			pid;
+	int			exits;
 
 	cmd = *(lst->data);
 	pid = fork();
 	if (pid < 0)
 		throw_error(cmd.name, ERRNO_DEFAULT, TRUE);
 	else if (pid == 0)
+	{
+		g_bash->forked = TRUE;
 		exec_fork_cmd(cmd);
+	}
 	else
-		wc = wait(NULL);
+	{
+		g_bash->forked = TRUE;
+		wc = waitpid(pid, &exits, 0);
+		errno = WEXITSTATUS(exits);
+		g_bash->forked = FALSE;
+	}
 }
 
 static void		exec(t_cmdlst *lst, t_cmdlst *pipe_lst)
@@ -92,6 +102,8 @@ static void		exec(t_cmdlst *lst, t_cmdlst *pipe_lst)
 		ft_export(cmd.arg, &(g_bash->envlst), &(g_bash->path));
 	else if (ft_strequ(cmd.name, "unset"))
 		ft_unset(cmd, &(g_bash->envlst), &(g_bash->path));
+	else if (ft_strequ(cmd.name, "exit"))
+		errno = 1;
 	else
 		exec_fork(lst);
 	close_inout(cmd);

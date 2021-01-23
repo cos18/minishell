@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:50:24 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:11:56 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 16:40:26 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int		check_equation(int *locate, char *equation);
 char	*strjoin_free_a(char *a, char *b);
 int		check_double_quote(char *is, char *input);
 
+void	sighandler(int signo);
+void	bind_signal(void);
+int		gnl(int fd, char **line);
 char	*strdup_with_home(char *str);
 
 #endif

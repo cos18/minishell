@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:12:37 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/15 18:20:09 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 00:13:15 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_cd(t_cmd cmd)
 		if ((err_msg = ft_strjoin("cd: ", cmd.arg[0])) == NULL)
 			return ;
 		throw_error(err_msg, errno, FALSE);
+		errno = 1;
 		free(err_msg);
 	}
 	envlst_set_pwd(g_bash->envlst);

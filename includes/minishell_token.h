@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 15:50:51 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 15:22:18 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 17:50:29 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ char				**cmd_split(char *s);
 
 void				tokenlst_init(t_list **lst, char *input);
 
+int					is_split(char *in, char *sp[]);
+int					is_cur_sp(char *in, char *sp[]);
+void				handle_sp(char **start, char *end, t_list **list);
+void				handle_sp2(char **start, char *end, t_list **list);
+void				cnt_env_len(char **now, char *end, int *env_len);
+
 typedef struct		s_cmdlst
 {
 	struct s_cmdlst	*prev;
@@ -48,7 +54,5 @@ t_cmdlst			*cmdlst_add_last(t_cmdlst **lst, t_cmd *cmd);
 t_cmdlst			*cmdlst_get_last(t_cmdlst *lst);
 
 int					cmdlst_init(t_list *tokenlst);
-
-void				sp2cmd(t_list *lst);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:50:21 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 15:35:28 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ static int	get_source(void)
 	return (cmdlst_init(token_lst) ? SOURCE_OK : SOURCE_TOKEN_ERR);
 }
 
+static void	init_sp(void)
+{
+	g_sp[0] = ft_strdup(" ");
+	g_sp[1] = ft_strdup(">>");
+	g_sp[2] = ft_strdup("<");
+	g_sp[3] = ft_strdup(">");
+	g_sp[4] = ft_strdup("|");
+	g_sp[5] = ft_strdup(";");
+	g_sp[6] = NULL;
+}
+
 static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
@@ -50,10 +61,20 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->envlst = envlst_init(envp);
 	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
 	g_bash->path = path_init(g_bash->envlst);
+	g_bash->exit_status = (t_envlst *)malloc_safe(sizeof(t_envlst));
+	g_bash->exit_status->name = NULL;
+	g_bash->exit_status->next = NULL;
+	g_bash->exit_status->val = NULL;
+	g_bash->forked = FALSE;
 	g_envlst_first_wrong = (t_envlst *)malloc_safe(sizeof(t_envlst));
 	g_envlst_first_wrong->name = NULL;
 	g_envlst_first_wrong->val = NULL;
 	g_envlst_first_wrong->next = NULL;
+	g_bash->exit_status = (t_envlst *)malloc_safe(sizeof(t_envlst));
+	g_bash->exit_status->name = "?";
+	g_bash->exit_status->next = NULL;
+	g_bash->exit_status->val = "";
+	init_sp();
 }
 
 int			main(int argc, char **argv, char **envp)
@@ -62,6 +83,7 @@ int			main(int argc, char **argv, char **envp)
 	t_bash	bash;
 
 	g_bash = &bash;
+	bind_signal();
 	init_bash(argv, envp);
 	while (TRUE)
 	{
