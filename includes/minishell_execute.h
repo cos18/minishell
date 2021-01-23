@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 18:25:07 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 17:29:28 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 02:29:00 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 # include "minishell_token.h"
 
+void	exec_fork_cmd(t_cmd cmd);
 void	exec_cmdlst(void);
 
-void	init_pipe_cmd(t_cmdlst *lst, t_cmdlst *pipe_lst);
+void	exec_pipe_recur(t_cmdlst *lst, t_cmdlst *pipe_lst, int *ppip);
+void	exec_pipe(t_cmdlst *lst, t_cmdlst *pipe_lst);
 
 void	close_inout_fd(t_cmdlst *now_cmd);
 int		handle_redir_in(t_cmdlst *now_cmd, t_cmdlst *now);

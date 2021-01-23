@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 18:26:43 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 03:47:31 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # define STDOUT 1
 # define STDERR 2
 
-# define STDIN_TMP 100
-# define STDOUT_TMP 101
+# define STDIN_TMP 200
+# define STDOUT_TMP 201
 
 # define TRUE 1
 # define FALSE 0
@@ -37,7 +37,7 @@
 # define SOURCE_EMPTY 2
 # define SOURCE_EXIT 3
 
-# define MAX_SPLIT 10000
+# define MAX_SPLIT 10000000
 
 # define TOKEN_DEFAULT 0
 # define TOKEN_PIPE 1

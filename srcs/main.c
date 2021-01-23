@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 03:50:07 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 04:09:13 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,7 @@ int			main(int argc, char **argv, char **envp)
 	envlst_free(g_bash->envlst);
 	free_split(g_bash->path, MAX_SPLIT);
 	free(g_envlst_first_wrong);
+	free(g_bash->exit_status);
+	free(g_bash->home);
 	(void)argc;
 }
