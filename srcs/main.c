@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 15:35:28 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 03:49:45 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,6 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->envlst = envlst_init(envp);
 	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
 	g_bash->path = path_init(g_bash->envlst);
-	g_bash->exit_status = (t_envlst *)malloc_safe(sizeof(t_envlst));
-	g_bash->exit_status->name = NULL;
-	g_bash->exit_status->next = NULL;
-	g_bash->exit_status->val = NULL;
 	g_bash->forked = FALSE;
 	g_envlst_first_wrong = (t_envlst *)malloc_safe(sizeof(t_envlst));
 	g_envlst_first_wrong->name = NULL;
@@ -97,5 +93,7 @@ int			main(int argc, char **argv, char **envp)
 	envlst_free(g_bash->envlst);
 	free_split(g_bash->path, MAX_SPLIT);
 	free(g_envlst_first_wrong);
+	free(g_bash->exit_status);
+	free(g_bash->home);
 	(void)argc;
 }

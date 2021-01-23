@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:23:18 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 02:50:58 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 03:47:31 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@
 # define SOURCE_EMPTY 2
 # define SOURCE_EXIT 3
 
-# define MAX_SPLIT 10000
+# define MAX_SPLIT 10000000
 
 # define TOKEN_DEFAULT 0
 # define TOKEN_PIPE 1
