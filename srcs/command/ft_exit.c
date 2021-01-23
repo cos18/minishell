@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 14:26:01 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 04:14:19 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 06:09:07 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int			throw_exit_error(char *arg)
 	if ((tmp = ft_strjoin("exit: ", arg)) == NULL)
 		throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
 	throw_custom_desc_error(tmp, "numeric argument required", FALSE);
-	free(tmp);
+	free_str(&tmp);
 	return (255);
 }
 

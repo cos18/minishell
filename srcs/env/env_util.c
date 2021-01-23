@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 23:48:28 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 06:02:42 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_envlst		*get_env_in_token(char **check)
 	if ((name = ft_strndup(start, *check - start + 1)) == NULL)
 		throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
 	result = envlst_get(g_bash->envlst, name);
-	free(name);
+	free_str(&name);
 	return (result);
 }
 

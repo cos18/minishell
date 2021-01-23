@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 15:28:58 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 14:34:35 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:09:57 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ static void	export_error_handling(char *equation)
 	if ((tmp = ft_strjoin("export: `", equation)) == NULL)
 		return ;
 	err_msg = ft_strjoin(tmp, "\'");
-	free(tmp);
+	free_str(&tmp);
 	if (err_msg == NULL)
 		return ;
 	throw_custom_desc_error(err_msg, "not a valid identifier", FALSE);
-	free(err_msg);
+	free_str(&err_msg);
 }
 
 void		ft_export(char **target, t_envlst **lst, char ***path)
@@ -68,7 +68,7 @@ void		ft_export(char **target, t_envlst **lst, char ***path)
 			export_error_handling(*target);
 		if (ft_strequ(name, ENV_PATH) || ft_strequ(name, ENV_PATH_WITHPLUS))
 			reset_path(path, *lst);
-		free(name);
+		free_str(&name);
 		target++;
 	}
 }

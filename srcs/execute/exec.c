@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 02:27:13 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:11:07 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void		exec_outside(t_cmd cmd)
 	path_name = cmd_get_path_join(g_bash->path, cmd.name);
 	envlst_char = envlst_to_char(g_bash->envlst);
 	execve(path_name, cmd.token, envlst_char);
-	free(path_name);
+	free_str(&path_name);
 	free_split(envlst_char, MAX_SPLIT);
 	if (errno == 14)
 		throw_custom_desc_error(cmd.name, "command not found", FALSE);

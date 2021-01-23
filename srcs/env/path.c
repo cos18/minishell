@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/14 20:14:50 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 17:29:15 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:03:29 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char				**path_init(t_envlst *envlst)
 		tmp = split[locate];
 		if ((split[locate++] = ft_strjoin(tmp, "/")) == NULL)
 			throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
-		free(tmp);
+		free_str(&tmp);
 	}
 	return (split);
 }
