@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 15:41:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 18:36:10 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 02:27:13 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		exec_outside(t_cmd cmd)
 	exit(127);
 }
 
-static void		exec_fork_cmd(t_cmd cmd)
+void			exec_fork_cmd(t_cmd cmd)
 {
 	int			status;
 
@@ -89,6 +89,11 @@ static void		exec(t_cmdlst *lst, t_cmdlst *pipe_lst)
 	int			status;
 
 	cmd = *(lst->data);
+	if (pipe_lst)
+	{
+		exec_pipe(lst, pipe_lst);
+		return ;
+	}
 	if (open_inout(cmd) == FALSE)
 		return ;
 	if (ft_strequ(cmd.name, "exit"))
@@ -102,40 +107,36 @@ static void		exec(t_cmdlst *lst, t_cmdlst *pipe_lst)
 		ft_export(cmd.arg, &(g_bash->envlst), &(g_bash->path));
 	else if (ft_strequ(cmd.name, "unset"))
 		ft_unset(cmd, &(g_bash->envlst), &(g_bash->path));
-	else if (ft_strequ(cmd.name, "exit"))
-		errno = 1;
 	else
 		exec_fork(lst);
 	close_inout(cmd);
-	if (pipe_lst != NULL)
-		ft_printf("%s", pipe_lst->data->name);
 }
 
 void			exec_cmdlst(void)
 {
-	t_cmdlst	*cmd_now;
+	t_cmdlst	*cmd_n;
 	t_cmdlst	*cmd_pipe;
-	t_cmdlst	*now;
+	t_cmdlst	*n;
 
-	now = g_bash->cmdlst;
-	while (now)
+	n = g_bash->cmdlst;
+	while (n)
 	{
 		cmd_pipe = NULL;
-		cmd_now = now;
-		while (now && get_token_kind(now->data->name) != TOKEN_SEMI)
+		cmd_n = n;
+		while (n && get_token_kind(n->data->name) != TOKEN_SEMI)
 		{
-			if (get_token_kind(now->data->name) == TOKEN_PIPE)
-				cmd_pipe = now;
-			if (cmd_pipe == NULL && handle_redir(cmd_now, now) == FALSE)
+			if (cmd_pipe == NULL && get_token_kind(n->data->name) == TOKEN_PIPE)
+				cmd_pipe = n;
+			if (cmd_pipe == NULL && handle_redir(cmd_n, n) == FALSE)
 				break ;
-			now = now->next;
+			n = n->next;
 		}
-		if (cmd_now->data->in == -1 || cmd_now->data->out == -1)
+		if (cmd_n->data->in == -1 || cmd_n->data->out == -1)
 			break ;
-		if (get_token_kind(cmd_now->data->name) == TOKEN_DEFAULT)
-			exec(cmd_now, cmd_pipe);
+		if (get_token_kind(cmd_n->data->name) == TOKEN_DEFAULT)
+			exec(cmd_n, cmd_pipe);
 		else
-			close_inout(*(cmd_now->data));
-		now = now ? now->next : now;
+			close_inout(*(cmd_n->data));
+		n = n ? n->next : n;
 	}
 }
