@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:43:14 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/24 03:37:22 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 05:42:51 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ int			gnl(char **line)
 			handle_eof(&g_bash->note, buff, byte, &tmp);
 		}
 	}
+	if (byte < 0)
+		return (-1);
 	return (handle_line(line, &g_bash->note, nl_here));
 }

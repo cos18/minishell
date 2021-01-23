@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:07:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 03:34:38 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 04:33:34 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_bash
 	char		**path;
 	int			forked;
 	char		*note;
+	char		quote;
 }				t_bash;
 
 t_bash			*g_bash;

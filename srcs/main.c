@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 04:09:13 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 05:13:45 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->exit_status->next = NULL;
 	g_bash->exit_status->val = "";
 	g_bash->note = NULL;
+	g_bash->quote = '\0';
 	init_sp();
 }
 
