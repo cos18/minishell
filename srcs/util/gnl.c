@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:43:14 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/23 16:50:30 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 17:15:34 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			gnl(int fd, char **line)
 	byte = 0;
 	while (((nl_here = ft_nextchar(note[fd], '\n')) == 0
 			&& (byte = read(fd, buff, 1)) > 0)
-			|| (byte == 0 && note[fd][0] != '\0'))
+			|| (byte == 0 && note[fd] != 0 && note[fd][0] != '\0'))
 	{
 		if (byte == 0 && note[fd][0] == '\0')
 			return (-1);
