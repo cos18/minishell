@@ -61,6 +61,11 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->envlst = envlst_init(envp);
 	g_bash->home = ft_strdup(envlst_get(g_bash->envlst, "HOME")->val);
 	g_bash->path = path_init(g_bash->envlst);
+	g_bash->exit_status = (t_envlst *)malloc_safe(sizeof(t_envlst));
+	g_bash->exit_status->name = NULL;
+	g_bash->exit_status->next = NULL;
+	g_bash->exit_status->val = NULL;
+	g_bash->forked = FALSE;
 	g_envlst_first_wrong = (t_envlst *)malloc_safe(sizeof(t_envlst));
 	g_envlst_first_wrong->name = NULL;
 	g_envlst_first_wrong->val = NULL;
@@ -74,6 +79,7 @@ int			main(int argc, char **argv, char **envp)
 	t_bash	bash;
 
 	g_bash = &bash;
+	bind_signal();
 	init_bash(argv, envp);
 	while (TRUE)
 	{

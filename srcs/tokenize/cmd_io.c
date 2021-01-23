@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/18 14:19:08 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/23 16:44:18 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int			get_command(void)
 	{
 		if (quote == '\\')
 			quote = '\0';
-		if ((gnl_result = get_next_line(0, &tmp)) != GNL_READ || tmp == NULL)
+		if ((gnl_result = gnl(0, &tmp)) != GNL_READ || tmp == NULL)
 		{
 			if (g_bash->input)
 				free(g_bash->input);

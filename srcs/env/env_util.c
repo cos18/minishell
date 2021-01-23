@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 14:24:15 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 15:52:31 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/18 19:32:58 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ t_envlst		*get_env_in_token(char **check)
 	t_envlst	*result;
 	char		*name;
 
+	start = ++(*check);
 	if (**check == '?')
 		return (g_bash->exit_status);
-	start = ++(*check);
 	if (!ft_isalnum(**check) && **check != '_')
 	{
 		(*check)--;
