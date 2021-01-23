@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/23 00:22:16 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/23 15:35:28 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ static int	get_source(void)
 	return (cmdlst_init(token_lst) ? SOURCE_OK : SOURCE_TOKEN_ERR);
 }
 
+static void	init_sp(void)
+{
+	g_sp[0] = ft_strdup(" ");
+	g_sp[1] = ft_strdup(">>");
+	g_sp[2] = ft_strdup("<");
+	g_sp[3] = ft_strdup(">");
+	g_sp[4] = ft_strdup("|");
+	g_sp[5] = ft_strdup(";");
+	g_sp[6] = NULL;
+}
+
 static void	init_bash(char **argv, char **envp)
 {
 	g_bash->input = NULL;
@@ -58,6 +69,7 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->exit_status->name = "?";
 	g_bash->exit_status->next = NULL;
 	g_bash->exit_status->val = "";
+	init_sp();
 }
 
 int			main(int argc, char **argv, char **envp)
