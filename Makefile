@@ -10,12 +10,15 @@
 #                                                                              #
 # **************************************************************************** #
 
-SRC		= main.c tokenize/cmd_io.c tokenize/tokenlst_init.c tokenize/sp2cmd.c \
+SRC		= main.c tokenize/cmd_io.c tokenize/tokenlst_init.c \
+		  tokenize/cmdlst_util.c tokenize/cmdlst_init.c tokenize/token_utils.c \
+		  tokenize/cmdlst_util2.c \
 		  env/envlst.c env/envlst_util.c env/env_util.c env/path.c \
 		  execute/exec.c \
-		  util/free.c util/error.c util/util.c util/signal.c util/gnl.c \
+		  util/free.c util/error.c util/util.c util/util2.c util/signal.c \
+      util/gnl.c \
 		  command/ft_pwd.c command/ft_cd.c command/ft_env.c	command/ft_export.c \
-		  command/ft_unset.c command/ft_echo.c
+		  command/ft_unset.c command/ft_echo.c command/ft_exit.c
 
 SRCDIR	= ./srcs/
 SRCS	= $(addprefix $(SRCDIR), $(SRC))
@@ -28,7 +31,7 @@ LIBNAME	= libft.a
 NAME	= minishell
 
 GCC		= gcc
-GCCFLAG	= -g3 -Wall -Wextra -Werror
+GCCFLAG	= -g3 -Wall -Wextra -Werror -fsanitize=address
 RM		= rm -f
 
 %.o:		%.c

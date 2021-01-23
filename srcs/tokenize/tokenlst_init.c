@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 14:49:00 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/16 17:21:02 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/22 22:27:41 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,22 @@ static void		add_token(t_list **lst, char **start, char *end)
 	char		*now;
 	int			env_len;
 
-	now = *start;
+	now = start[0];
 	env_len = 0;
-	while (now != end)
+	if (!*now || now > end)
+		return ;
+	cnt_env_len(&now, end, &env_len);
+	if ((**start == ' ' && *end == ' ') ||
+		(is_cur_sp(*start, g_sp) > 0 && is_cur_sp(end, g_sp) > 0))
 	{
-		if (*now == '$')
-			env_len += check_env_len(&now);
-		now++;
+		handle_sp2(start, end, lst);
+		return ;
 	}
 	token = (char *)malloc_safe(sizeof(char) * (end - *start + env_len + 1));
 	set_token(token, *start, end);
-	if ((tokenlst = ft_lstnew((void *)token)) == NULL)
-		throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
+	!(tokenlst = ft_lstnew(token)) ? throw_error("Malloc failed", -1, 1) : 0;
 	ft_lstadd_back(lst, tokenlst);
-	*start = NULL;
+	is_cur_sp(end, g_sp) > 0 ? handle_sp(start, end, lst) : (*start = NULL);
 }
 
 void			tokenlst_init(t_list **lst, char *input)
@@ -105,15 +107,16 @@ void			tokenlst_init(t_list **lst, char *input)
 	{
 		if (start == NULL && !ft_isblank(*input))
 			start = input;
-		if (start && ft_isblank(*input) && quote == '\0'
+		if (start && is_cur_sp(input, g_sp) != -1 && quote == '\0'
 				&& (is == input || *(input - 1) != '\\'))
 			add_token(lst, &start, input);
-		if ((*input == '\'' || check_double_quote(is, input))
-				&& (quote == '\0'))
+		if ((*input == '\'' || check_double_quote(is, input)) && (quote == 0))
 			quote = *input;
 		else if ((*input == '\'' || check_double_quote(is, input))
 				&& (quote == *input))
 			quote = '\0';
+		if (start && is_cur_sp(input, g_sp) == 0)
+			input++;
 		input++;
 	}
 	if (start)
