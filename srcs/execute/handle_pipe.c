@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/24 01:07:20 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 03:07:32 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 03:15:48 by sunpark          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static void		set_pipe_fd(t_cmd cmd, int *ppip, int *npip)
 {
-	if (npip)
+	if (npip && npip[0] != -10)
 	{
 		dup2(npip[1], STDOUT);
 		close(npip[1]);
 		close(npip[0]);
 	}
-	if (ppip)
+	if (ppip && ppip[0] != -10)
 	{
 		dup2(ppip[0], STDIN);
 		close(ppip[1]);
@@ -71,22 +71,20 @@ static void		exec_pipe_recur2(t_cmdlst *pcmd, int *ppip, int *npip, int pid)
 		exec_pipe_recur3(pcmd, npip);
 	ws = waitpid(pid, &exits, 0);
 	errno = WEXITSTATUS(exits);
-	// free(npip);
 	g_bash->forked = FALSE;
 }
 
 void			exec_pipe_recur(t_cmdlst *lst, t_cmdlst *pipe_lst, int *ppip)
 {
-	int			*npip;
+	int			npip[2];
 	t_cmd		cmd;
 	int			pid;
 
 	cmd = *(lst->data);
 	if (pipe_lst)
-	{
-		npip = (int *)malloc_safe(sizeof(int) * 2);
 		pipe(npip);
-	}
+	else
+		npip[0] = -10;
 	pid = fork();
 	if (pid < 0)
 		throw_error(cmd.name, ERRNO_DEFAULT, TRUE);
