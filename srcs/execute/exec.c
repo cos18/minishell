@@ -63,11 +63,16 @@ static void		exec_fork(t_cmd cmd)
 	if (pid < 0)
 		throw_error(cmd.name, ERRNO_DEFAULT, TRUE);
 	else if (pid == 0)
+	{
+		g_bash->forked = TRUE;
 		exec_fork_cmd(cmd);
+	}
 	else
 	{
+		g_bash->forked = TRUE;
 		wc = waitpid(pid, &exits, 0);
 		errno = WEXITSTATUS(exits);
+		g_bash->forked = FALSE;
 	}
 }
 

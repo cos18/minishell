@@ -38,6 +38,7 @@ typedef struct	s_bash
 	t_envlst	*envlst;
 	t_envlst	*exit_status;
 	char		**path;
+	int			forked;
 }				t_bash;
 
 t_bash			*g_bash;
