@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:22:32 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 03:29:22 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:07:55 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int		add_redir(t_list **tokenlst, t_cmdlst **redir_start)
 			get_token_kind((char *)((*tokenlst)->content)) != TOKEN_DEFAULT)
 	{
 		if (result->name)
-			free(result->name);
+			free_str(&result->name);
 		free(result);
 		if (*tokenlst)
 			return (throw_token_error((char *)((*tokenlst)->content)));

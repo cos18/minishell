@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 18:59:43 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 00:11:58 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:02:23 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void			envlst_free(t_envlst *lst)
 	if (lst->next)
 		envlst_free(lst->next);
 	if (lst->name)
-		free(lst->name);
+		free_str(&lst->name);
 	if (lst->val)
-		free(lst->val);
+		free_str(&lst->val);
 	free(lst);
 }
 
@@ -73,14 +73,14 @@ void			envlst_set_pwd(t_envlst *lst)
 		if (oldpwd == NULL)
 			oldpwd = envlst_add_name(lst, ENV_OLDPWD);
 		else
-			free(oldpwd->val);
+			free_str(&oldpwd->val);
 		oldpwd->val = pwd->val;
 	}
 	else
 	{
 		if (oldpwd)
 		{
-			free(oldpwd->val);
+			free_str(&oldpwd->val);
 			oldpwd->val = ft_strdup("");
 		}
 		pwd = envlst_add_name(lst, ENV_PWD);

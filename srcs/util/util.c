@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 00:28:42 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/22 16:43:58 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:17:35 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ char		*strjoin_free_a(char *a, char *b)
 	if (b == NULL)
 	{
 		result = ft_strdup(a);
-		free(a);
+		free_str(&a);
 		return (result);
 	}
 	result = ft_strjoin(a, b);
-	free(a);
+	free_str(&a);
 	return (result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 23:27:44 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 03:53:55 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 05:54:18 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static char	*ft_join(char *s1, char *s2)
 	while (s2[++j])
 		r[i + j] = s2[j];
 	r[i + j] = '\0';
-	free(s1);
+	free_str(&s1);
 	s1 = NULL;
-	free(s2);
+	free_str(&s2);
 	s2 = NULL;
 	return (r);
 }
@@ -86,23 +86,22 @@ int			get_command(void)
 {
 	char	*tmp;
 	int		gnl_result;
-	char	quote;
 
-	quote = '\0';
+	g_bash->quote = '\0';
 	while (TRUE)
 	{
-		if (quote == '\\')
-			quote = '\0';
+		if (g_bash->quote == '\\')
+			g_bash->quote = '\0';
 		if ((gnl_result = gnl(&tmp)) != GNL_READ || tmp == NULL)
 		{
 			if (g_bash->input)
-				free(g_bash->input);
+				free_str(&g_bash->input);
 			if (tmp)
-				free(tmp);
+				free_str(&tmp);
 			return (gnl_result);
 		}
-		g_bash->input = handle_str(&quote, g_bash->input, tmp);
-		if (quote == '\0')
+		g_bash->input = handle_str(&g_bash->quote, g_bash->input, tmp);
+		if (g_bash->quote == '\0')
 			break ;
 		print_prompt(PS2);
 	}

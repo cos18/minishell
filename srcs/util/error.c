@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/08 16:55:22 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 03:29:27 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:13:40 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int			throw_token_error(char *token)
 								token);
 	message = strjoin_free_a(message, "\'");
 	ft_putendl_fd(message, STDERR);
-	free(message);
+	free_str(&message);
 	errno = 258;
 	return (FALSE);
 }

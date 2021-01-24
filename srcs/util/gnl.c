@@ -6,7 +6,7 @@
 /*   By: hyukim <hyukim@student.42seoul.kr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 16:43:14 by hyukim            #+#    #+#             */
-/*   Updated: 2021/01/24 03:37:22 by hyukim           ###   ########.fr       */
+/*   Updated: 2021/01/24 06:16:28 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void	handle_eof(char **note, char buff[2], int byte, char **tmp)
 	*tmp = (*note == NULL ? ft_strndup(buff, byte) :
 		ft_strjoin(*note, buff));
 	if (*note != 0)
-		free(*note);
+		free_str(note);
 	*note = *tmp;
 }
 
@@ -47,7 +47,7 @@ static int	handle_line(char **line, char **note, char *nl_here)
 	{
 		*line = ft_strndup(*note, nl_here - *note);
 		tmp = ft_strndup(nl_here + 1, ft_strlen(nl_here + 1));
-		free(*note);
+		free_str(note);
 		*note = tmp;
 		return (1);
 	}
@@ -85,5 +85,7 @@ int			gnl(char **line)
 			handle_eof(&g_bash->note, buff, byte, &tmp);
 		}
 	}
+	if (byte < 0)
+		return (-1);
 	return (handle_line(line, &g_bash->note, nl_here));
 }

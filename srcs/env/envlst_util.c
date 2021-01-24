@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 00:22:36 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/15 00:40:47 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:03:18 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void			envlst_append(t_envlst **lst, char *name, char *equation, int l)
 		if (target->val == NULL)
 			throw_error("Malloc failed", ERRNO_DEFAULT, TRUE);
 		if (tmp)
-			free(tmp);
+			free_str(&tmp);
 	}
 }
 
@@ -96,9 +96,9 @@ void			envlst_del(t_envlst **lst, char *name)
 		prev->next = target->next;
 	}
 	if (target->name)
-		free(target->name);
+		free_str(&target->name);
 	if (target->val)
-		free(target->val);
+		free_str(&target->val);
 	free(target);
 }
 

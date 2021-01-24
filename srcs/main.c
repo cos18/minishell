@@ -6,7 +6,7 @@
 /*   By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/22 22:05:59 by sunpark           #+#    #+#             */
-/*   Updated: 2021/01/24 04:09:13 by sunpark          ###   ########.fr       */
+/*   Updated: 2021/01/24 06:12:24 by hyukim           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ static int	get_source(void)
 		exit(EXIT_FAILURE);
 	if (cmd_status == GET_CMD_EOF)
 	{
-		if (g_bash->input)
-			free(g_bash->input);
+		free_str(&g_bash->input);
 		ft_printf("exit\n");
 		return (SOURCE_EXIT);
 	}
@@ -71,6 +70,7 @@ static void	init_bash(char **argv, char **envp)
 	g_bash->exit_status->next = NULL;
 	g_bash->exit_status->val = "";
 	g_bash->note = NULL;
+	g_bash->quote = '\0';
 	init_sp();
 }
 
@@ -95,6 +95,6 @@ int			main(int argc, char **argv, char **envp)
 	free_split(g_bash->path, MAX_SPLIT);
 	free(g_envlst_first_wrong);
 	free(g_bash->exit_status);
-	free(g_bash->home);
+	free_str(&g_bash->home);
 	(void)argc;
 }
